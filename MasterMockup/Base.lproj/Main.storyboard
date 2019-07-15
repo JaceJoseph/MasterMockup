@@ -189,6 +189,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
+                                    <action selector="finishRecordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="6Uk-G3-zCk"/>
                                     <segue destination="3uZ-rk-8bY" kind="show" identifier="toResultSegue" id="DOA-k1-Wze"/>
                                 </connections>
                             </button>
@@ -207,6 +208,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Recording" id="eFV-09-cPH"/>
                     <connections>
+                        <outlet property="finishRecordButton" destination="wZG-Au-vH9" id="SsL-5X-fo0"/>
                         <outlet property="recordButton" destination="bl4-5o-n1c" id="nKP-Li-gYx"/>
                         <outlet property="recordImage" destination="Ozf-eK-0xk" id="0hI-4v-tOS"/>
                     </connections>

@@ -14,6 +14,7 @@ class AddRecordViewController: UIViewController {
 
     @IBOutlet weak var recordImage: UIImageView!
     @IBOutlet weak var recordButton: UISwitch!
+    @IBOutlet weak var finishRecordButton: UIButton!
     
     //addon michael
     var recordingSession: AVAudioSession!
@@ -25,10 +26,18 @@ class AddRecordViewController: UIViewController {
     var WPMValue = Double()
     //addon harid done
     
+    // Add on Tommy
+    var numberOfRecords: Int = 0
+    // Add on Tommy
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        // Finish record button tidak bisa di tekan
+        finishRecordButton.isEnabled = false
+        
     }
     
     @IBAction func recordButtonIsTapped(_ sender: UISwitch) {
@@ -38,8 +47,20 @@ class AddRecordViewController: UIViewController {
         }else if sender.isOn == false{
             sender.isOn = true
             recordImage.rotate360Degrees()
+            
+            startRecording()
+            finishRecordButton.isEnabled = true
         }
     }
+    
+    @IBAction func finishRecordButtonIsTapped(_ sender: Any) {
+        
+        recordButton.setOn(false, animated: true)
+        recordImage.layer.removeAllAnimations()
+        
+        saveRecording()
+    }
+    
     
 //addon michael gunawan //belum di attach ke button ya
     
@@ -67,8 +88,12 @@ class AddRecordViewController: UIViewController {
     
 //memulai recording
     func startRecording(){
+        // Penomoran Recording
+        numberOfRecords += 1
+        
         //kasih nama ke recording filenya
         let audioFilename = self.getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        
         //setup setting recording
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -97,6 +122,9 @@ class AddRecordViewController: UIViewController {
     func saveRecording(){
         audioRecorder.stop()
         audioRecorder = nil
+        
+        // Menambah user default untuk number of recoring
+        UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
     }
 //addon untuk wpm, temporary disini utk testing
     //check permision transcribe voice
@@ -139,6 +167,7 @@ class AddRecordViewController: UIViewController {
             }
         }
     }
+    
     //calculate words per minute(ini utk average)
     func calculateWPM(numberOfWords: Int) -> Double{
         let asset = AVURLAsset(url: self.getDocumentsDirectory().appendingPathComponent("recording.m4a"), options: nil)
@@ -147,11 +176,14 @@ class AddRecordViewController: UIViewController {
         print("duration:",audioDurationSeconds,"seconds")
         return (((Double(numberOfWords)) / (Double(audioDurationSeconds))) * 60)
     }
+    
+    
     //haris - transferdata ke result tabel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toResultSegue"{
             guard let result = segue.destination as? ResultTableViewController else {return}
             result.wpmValue = self.WPMValue
+            result.numOfRecordsTemporary = self.numberOfRecords
         }
     }
 }

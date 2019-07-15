@@ -14,13 +14,19 @@ class ResultTableViewController: UITableViewController {
     var wpmValue: Double = 0
     var wpmResult: String = ""
     var WPMDescription: String = ""
+    
     //filler word result
     var detectedFiller: Double = 0
     var fillerWordResult: String = ""
     var fillerWordDescription: String = ""
+    
     //intonation result
     var intonationResult: String = ""
     var intonationDescription: String = ""
+    
+    // Pencatatan Number of Records (DATA INI TIDAK DITAMPILKAN DI SINI, PERANTARA KE HALAMAN AWAL)
+    var numOfRecordsTemporary: Int = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +48,12 @@ class ResultTableViewController: UITableViewController {
         }else{
             return 1
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let dataVC = segue.destination as? ViewController else {return}
+        dataVC.add(name: String(numOfRecordsTemporary))
+        
     }
 
 }

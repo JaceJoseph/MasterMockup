@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     let dummyArray:[UIImage] = [#imageLiteral(resourceName: "VinylA"),#imageLiteral(resourceName: "VinylC"),#imageLiteral(resourceName: "VinylD"),#imageLiteral(resourceName: "VinylB")]
     let dummyTitle:[String]=["Recording 1","Recording 2"]
     let dummySubtitle:[String]=["Subtitle 1","Subtitle2"]
+    
+    // Variable Penampung untuk record dari ResultTableViewController
+    let recordTitle: [String] = []
 
     @IBOutlet weak var recordsPageDot: UIPageControl!
     @IBOutlet weak var recordsCollectionView: UICollectionView!
@@ -112,6 +115,11 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "resultSegue", sender: self)
+    }
+    
+    // Function to append from WinViewController (See WinViewCOntroller.swift)
+    func add(name: String) {
+        recordTitle.append(name)
     }
     
 }
