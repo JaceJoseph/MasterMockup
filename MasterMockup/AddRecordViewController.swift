@@ -35,6 +35,11 @@ class AddRecordViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        //Inisialisasi UserDefault
+        if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int {
+            numberOfRecords = number
+        }
+        
         // Finish record button tidak bisa di tekan
         finishRecordButton.isEnabled = false
         
