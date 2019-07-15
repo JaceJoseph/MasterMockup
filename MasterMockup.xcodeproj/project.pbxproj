@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		661EE09E22DBFC240043661F /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661EE09D22DBFC240043661F /* ResultTableViewController.swift */; };
+		70B5E21E22DC53CD00698753 /* OpenRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5E21D22DC53CD00698753 /* OpenRecordingViewController.swift */; };
+		70B5E22622DC5D1100698753 /* PacingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5E22522DC5D1100698753 /* PacingCollectionViewCell.swift */; };
+		70B5E22822DC5FA000698753 /* Result1CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5E22722DC5FA000698753 /* Result1CollectionViewCell.swift */; };
 		70B68E2422D83B930007DC15 /* RecordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B68E2322D83B930007DC15 /* RecordListTableViewCell.swift */; };
 		70EBBD6F22D81F620037D10A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EBBD6E22D81F620037D10A /* AppDelegate.swift */; };
 		70EBBD7122D81F620037D10A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EBBD7022D81F620037D10A /* ViewController.swift */; };
@@ -21,6 +24,9 @@
 
 /* Begin PBXFileReference section */
 		661EE09D22DBFC240043661F /* ResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
+		70B5E21D22DC53CD00698753 /* OpenRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenRecordingViewController.swift; sourceTree = "<group>"; };
+		70B5E22522DC5D1100698753 /* PacingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacingCollectionViewCell.swift; sourceTree = "<group>"; };
+		70B5E22722DC5FA000698753 /* Result1CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result1CollectionViewCell.swift; sourceTree = "<group>"; };
 		70B68E2322D83B930007DC15 /* RecordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListTableViewCell.swift; sourceTree = "<group>"; };
 		70EBBD6B22D81F620037D10A /* MasterMockup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterMockup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70EBBD6E22D81F620037D10A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +51,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		70B5E22122DC5B6D00698753 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				70EBBD7022D81F620037D10A /* ViewController.swift */,
+				70EBBD8322D8242A0037D10A /* RecordsCollectionViewCell.swift */,
+				70B68E2322D83B930007DC15 /* RecordListTableViewCell.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		70B5E22222DC5B7600698753 /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				661EE09D22DBFC240043661F /* ResultTableViewController.swift */,
+				70B5E21D22DC53CD00698753 /* OpenRecordingViewController.swift */,
+			);
+			path = Result;
+			sourceTree = "<group>";
+		};
+		70B5E22322DC5B7C00698753 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				70EBBD8522D828AA0037D10A /* AddRecordViewController.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		70B5E22422DC5B8200698753 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		70EBBD6222D81F620037D10A = {
 			isa = PBXGroup;
 			children = (
@@ -64,17 +104,18 @@
 		70EBBD6D22D81F620037D10A /* MasterMockup */ = {
 			isa = PBXGroup;
 			children = (
+				70B5E22422DC5B8200698753 /* New Group */,
+				70B5E22322DC5B7C00698753 /* Record */,
+				70B5E22222DC5B7600698753 /* Result */,
+				70B5E22122DC5B6D00698753 /* Home */,
 				70EBBD6E22D81F620037D10A /* AppDelegate.swift */,
-				70EBBD7022D81F620037D10A /* ViewController.swift */,
 				70EBBD7222D81F620037D10A /* Main.storyboard */,
+				70B5E22522DC5D1100698753 /* PacingCollectionViewCell.swift */,
 				70EBBD7822D81F650037D10A /* Assets.xcassets */,
 				70EBBD7A22D81F650037D10A /* LaunchScreen.storyboard */,
 				70EBBD7D22D81F650037D10A /* Info.plist */,
 				70EBBD7522D81F620037D10A /* MasterMockup.xcdatamodeld */,
-				70EBBD8322D8242A0037D10A /* RecordsCollectionViewCell.swift */,
-				70EBBD8522D828AA0037D10A /* AddRecordViewController.swift */,
-				661EE09D22DBFC240043661F /* ResultTableViewController.swift */,
-				70B68E2322D83B930007DC15 /* RecordListTableViewCell.swift */,
+				70B5E22722DC5FA000698753 /* Result1CollectionViewCell.swift */,
 			);
 			path = MasterMockup;
 			sourceTree = "<group>";
@@ -155,8 +196,11 @@
 				70EBBD6F22D81F620037D10A /* AppDelegate.swift in Sources */,
 				70EBBD8622D828AA0037D10A /* AddRecordViewController.swift in Sources */,
 				661EE09E22DBFC240043661F /* ResultTableViewController.swift in Sources */,
+				70B5E22622DC5D1100698753 /* PacingCollectionViewCell.swift in Sources */,
 				70B68E2422D83B930007DC15 /* RecordListTableViewCell.swift in Sources */,
+				70B5E21E22DC53CD00698753 /* OpenRecordingViewController.swift in Sources */,
 				70EBBD8422D8242A0037D10A /* RecordsCollectionViewCell.swift in Sources */,
+				70B5E22822DC5FA000698753 /* Result1CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

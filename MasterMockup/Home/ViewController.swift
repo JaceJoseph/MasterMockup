@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     let dummySubtitle:[String]=["Subtitle 1","Subtitle2"]
     
     // Variable Penampung untuk record dari ResultTableViewController
-    let recordTitle: [String] = []
+    var recordTitle: [String] = []
 
     @IBOutlet weak var recordsPageDot: UIPageControl!
     @IBOutlet weak var recordsCollectionView: UICollectionView!
