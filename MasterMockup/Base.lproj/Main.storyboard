@@ -294,6 +294,22 @@
                                     <segue destination="3uZ-rk-8bY" kind="show" identifier="toResultSegue" id="DOA-k1-Wze"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cp4-Uc-qTD">
+                                <rect key="frame" x="71" y="753" width="70" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start Rec"/>
+                                <connections>
+                                    <action selector="startRecordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="K7O-5F-F3Z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0w-kJ-YfB">
+                                <rect key="frame" x="264" y="763" width="72" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Pause Rec"/>
+                                <connections>
+                                    <action selector="pauseRecordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="HEo-nn-Bdq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -310,13 +326,15 @@
                     <navigationItem key="navigationItem" title="Add Recording" id="eFV-09-cPH"/>
                     <connections>
                         <outlet property="finishRecordButton" destination="wZG-Au-vH9" id="SsL-5X-fo0"/>
+                        <outlet property="pauseRecordButton" destination="W0w-kJ-YfB" id="5UX-DI-CSo"/>
                         <outlet property="recordButton" destination="bl4-5o-n1c" id="nKP-Li-gYx"/>
                         <outlet property="recordImage" destination="Ozf-eK-0xk" id="0hI-4v-tOS"/>
+                        <outlet property="startRecordButton" destination="cp4-Uc-qTD" id="c2d-Zy-c1Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vYm-Fr-7ww" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1188" y="257"/>
+            <point key="canvasLocation" x="1186.9565217391305" y="256.47321428571428"/>
         </scene>
         <!--Result-->
         <scene sceneID="eVn-LC-hDj">
