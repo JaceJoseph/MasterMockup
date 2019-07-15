@@ -20,6 +20,11 @@ class AddRecordViewController: UIViewController {
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     //addon michael done
+    
+    //addon haris
+    var WPMValue = Double()
+    //addon harid done
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -130,6 +135,7 @@ class AddRecordViewController: UIViewController {
                 print("words:",listString.count)
                 print("wpm:",self.calculateWPM(numberOfWords: listString.count))
                 print("=============================")
+                self.WPMValue = self.calculateWPM(numberOfWords: listString.count)
             }
         }
     }
@@ -140,6 +146,13 @@ class AddRecordViewController: UIViewController {
         let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
         print("duration:",audioDurationSeconds,"seconds")
         return (((Double(numberOfWords)) / (Double(audioDurationSeconds))) * 60)
+    }
+    //haris - transferdata ke result tabel
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toResultSegue"{
+            guard let result = segue.destination as? ResultTableViewController else {return}
+            result.wpmValue = self.WPMValue
+        }
     }
 }
 
