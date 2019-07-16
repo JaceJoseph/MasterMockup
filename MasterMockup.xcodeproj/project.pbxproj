@@ -13,6 +13,7 @@
 		70B5E22622DC5D1100698753 /* PacingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5E22522DC5D1100698753 /* PacingCollectionViewCell.swift */; };
 		70B5E22822DC5FA000698753 /* Result1CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5E22722DC5FA000698753 /* Result1CollectionViewCell.swift */; };
 		70B68E2422D83B930007DC15 /* RecordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B68E2322D83B930007DC15 /* RecordListTableViewCell.swift */; };
+		70EBB35522DCC0F700121CF8 /* AllRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EBB35422DCC0F700121CF8 /* AllRecordViewController.swift */; };
 		70EBBD6F22D81F620037D10A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EBBD6E22D81F620037D10A /* AppDelegate.swift */; };
 		70EBBD7122D81F620037D10A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EBBD7022D81F620037D10A /* ViewController.swift */; };
 		70EBBD7422D81F620037D10A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70EBBD7222D81F620037D10A /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 		70B5E22522DC5D1100698753 /* PacingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacingCollectionViewCell.swift; sourceTree = "<group>"; };
 		70B5E22722DC5FA000698753 /* Result1CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result1CollectionViewCell.swift; sourceTree = "<group>"; };
 		70B68E2322D83B930007DC15 /* RecordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListTableViewCell.swift; sourceTree = "<group>"; };
+		70EBB35422DCC0F700121CF8 /* AllRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordViewController.swift; sourceTree = "<group>"; };
 		70EBBD6B22D81F620037D10A /* MasterMockup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterMockup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70EBBD6E22D81F620037D10A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70EBBD7022D81F620037D10A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				70EBBD7D22D81F650037D10A /* Info.plist */,
 				70EBBD7522D81F620037D10A /* MasterMockup.xcdatamodeld */,
 				70B5E22722DC5FA000698753 /* Result1CollectionViewCell.swift */,
+				70EBB35422DCC0F700121CF8 /* AllRecordViewController.swift */,
 			);
 			path = MasterMockup;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				70B5E22622DC5D1100698753 /* PacingCollectionViewCell.swift in Sources */,
 				70B68E2422D83B930007DC15 /* RecordListTableViewCell.swift in Sources */,
 				70B5E21E22DC53CD00698753 /* OpenRecordingViewController.swift in Sources */,
+				70EBB35522DCC0F700121CF8 /* AllRecordViewController.swift in Sources */,
 				70EBBD8422D8242A0037D10A /* RecordsCollectionViewCell.swift in Sources */,
 				70B5E22822DC5FA000698753 /* Result1CollectionViewCell.swift in Sources */,
 			);

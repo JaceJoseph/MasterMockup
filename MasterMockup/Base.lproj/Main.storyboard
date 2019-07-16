@@ -52,7 +52,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VinylA" translatesAutoresizingMaskIntoConstraints="NO" id="jGn-xS-tM4">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="372" height="312.50000000000006"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="372" height="312.5"/>
                                                                     </imageView>
                                                                 </subviews>
                                                             </view>
@@ -92,6 +92,17 @@
                                         <constraint firstItem="Ra3-Sn-q9s" firstAttribute="leading" secondItem="bcR-vj-NY8" secondAttribute="leading" constant="20" id="nu6-Dk-hLl"/>
                                     </constraints>
                                 </view>
+                                <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HTR-8z-duV">
+                                    <rect key="frame" x="0.0" y="570.5" width="414" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <state key="normal" title="See All Recordings">
+                                        <color key="titleColor" red="0.2627450980392157" green="0.49693751335144043" blue="0.55295145511627197" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </state>
+                                    <connections>
+                                        <segue destination="Sjr-Q1-j1u" kind="show" id="8fe-hU-uku"/>
+                                    </connections>
+                                </button>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="recordsListCell" rowHeight="70" id="zRV-hG-dAN" customClass="RecordListTableViewCell" customModule="MasterMockup" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="482.5" width="414" height="70"/>
@@ -158,6 +169,96 @@
             </objects>
             <point key="canvasLocation" x="447.82608695652175" y="255.80357142857142"/>
         </scene>
+        <!--All Recordings-->
+        <scene sceneID="IMW-Yc-s7b">
+            <objects>
+                <viewController id="Sjr-Q1-j1u" customClass="AllRecordViewController" customModule="MasterMockup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ery-GA-Atz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="pQQ-fR-1BT">
+                                <rect key="frame" x="0.0" y="140" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Sjr-Q1-j1u" id="ZEJ-jB-RrO"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2V2-i7-6sl">
+                                <rect key="frame" x="0.0" y="196" width="414" height="666"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="allRecordsCell" rowHeight="70" id="2jN-qk-nXu" customClass="RecordListTableViewCell" customModule="MasterMockup" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2jN-qk-nXu" id="sla-Hz-Jmg">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="69.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GqV-yw-M1j">
+                                                    <rect key="frame" x="20" y="5" width="374" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHu-M5-cfw">
+                                                    <rect key="frame" x="20" y="31" width="354" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="GqV-yw-M1j" firstAttribute="top" secondItem="sla-Hz-Jmg" secondAttribute="top" constant="5" id="HaR-ZM-lv2"/>
+                                                <constraint firstItem="PHu-M5-cfw" firstAttribute="top" secondItem="GqV-yw-M1j" secondAttribute="bottom" constant="5" id="RjH-kz-DTf"/>
+                                                <constraint firstItem="PHu-M5-cfw" firstAttribute="leading" secondItem="sla-Hz-Jmg" secondAttribute="leadingMargin" id="SOf-rb-DMU"/>
+                                                <constraint firstAttribute="trailing" secondItem="GqV-yw-M1j" secondAttribute="trailing" constant="20" id="hzg-dq-nmS"/>
+                                                <constraint firstItem="GqV-yw-M1j" firstAttribute="leading" secondItem="sla-Hz-Jmg" secondAttribute="leading" constant="20" id="sI7-hL-mfK"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="PHu-M5-cfw" secondAttribute="trailing" constant="20" id="wFc-Yz-KMo"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="subtitileTitleLabel" destination="PHu-M5-cfw" id="xcJ-cu-Mmp"/>
+                                            <outlet property="titleLabel" destination="GqV-yw-M1j" id="oKp-cw-lxr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pQQ-fR-1BT" firstAttribute="top" secondItem="283-3e-rYt" secondAttribute="top" id="3Zn-p9-EtV"/>
+                            <constraint firstItem="283-3e-rYt" firstAttribute="trailing" secondItem="2V2-i7-6sl" secondAttribute="trailing" id="3bR-QP-jZL"/>
+                            <constraint firstItem="2V2-i7-6sl" firstAttribute="top" secondItem="pQQ-fR-1BT" secondAttribute="bottom" id="OJI-zF-eQt"/>
+                            <constraint firstItem="pQQ-fR-1BT" firstAttribute="trailing" secondItem="283-3e-rYt" secondAttribute="trailing" id="Unl-po-FSR"/>
+                            <constraint firstItem="pQQ-fR-1BT" firstAttribute="leading" secondItem="283-3e-rYt" secondAttribute="leading" id="UvZ-sp-k5F"/>
+                            <constraint firstItem="2V2-i7-6sl" firstAttribute="leading" secondItem="283-3e-rYt" secondAttribute="leading" id="bOu-89-smN"/>
+                            <constraint firstItem="283-3e-rYt" firstAttribute="bottom" secondItem="2V2-i7-6sl" secondAttribute="bottom" id="gz6-lG-ADG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="283-3e-rYt"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="All Recordings" id="eXi-Wt-EXu">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="action" id="ApL-ar-smP"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="allRecordTableView" destination="2V2-i7-6sl" id="sRt-2d-43h"/>
+                        <outlet property="searchDisplayController" destination="EpB-sZ-dfa" id="eE3-K2-mLG"/>
+                        <segue destination="weu-wu-wqi" kind="show" identifier="allRecordsToResult" id="v6Y-UL-jD2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Fn-fl-vHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="EpB-sZ-dfa">
+                    <connections>
+                        <outlet property="delegate" destination="Sjr-Q1-j1u" id="zuV-A7-zzD"/>
+                        <outlet property="searchBar" destination="pQQ-fR-1BT" id="1rZ-1c-hPg"/>
+                        <outlet property="searchContentsController" destination="Sjr-Q1-j1u" id="SLg-c6-Hxx"/>
+                        <outlet property="searchResultsDataSource" destination="Sjr-Q1-j1u" id="gKh-xa-KVx"/>
+                        <outlet property="searchResultsDelegate" destination="Sjr-Q1-j1u" id="v8r-hp-R7a"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="818.84057971014499" y="-469.41964285714283"/>
+        </scene>
         <!--Add Recording-->
         <scene sceneID="7TN-ka-aUd">
             <objects>
@@ -193,6 +294,22 @@
                                     <segue destination="3uZ-rk-8bY" kind="show" identifier="toResultSegue" id="DOA-k1-Wze"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cp4-Uc-qTD">
+                                <rect key="frame" x="71" y="753" width="70" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start Rec"/>
+                                <connections>
+                                    <action selector="startRecordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="K7O-5F-F3Z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0w-kJ-YfB">
+                                <rect key="frame" x="264" y="763" width="72" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Pause Rec"/>
+                                <connections>
+                                    <action selector="pauseRecordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="HEo-nn-Bdq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -209,13 +326,15 @@
                     <navigationItem key="navigationItem" title="Add Recording" id="eFV-09-cPH"/>
                     <connections>
                         <outlet property="finishRecordButton" destination="wZG-Au-vH9" id="SsL-5X-fo0"/>
+                        <outlet property="pauseRecordButton" destination="W0w-kJ-YfB" id="5UX-DI-CSo"/>
                         <outlet property="recordButton" destination="bl4-5o-n1c" id="nKP-Li-gYx"/>
                         <outlet property="recordImage" destination="Ozf-eK-0xk" id="0hI-4v-tOS"/>
+                        <outlet property="startRecordButton" destination="cp4-Uc-qTD" id="c2d-Zy-c1Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vYm-Fr-7ww" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1188" y="257"/>
+            <point key="canvasLocation" x="1186.9565217391305" y="256.47321428571428"/>
         </scene>
         <!--Result-->
         <scene sceneID="eVn-LC-hDj">
@@ -615,4 +734,7 @@
         <image name="Vinyl Only" width="340" height="344"/>
         <image name="VinylA" width="343" height="347"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="v6Y-UL-jD2"/>
+    </inferredMetricsTieBreakers>
 </document>
