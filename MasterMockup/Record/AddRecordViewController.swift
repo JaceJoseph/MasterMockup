@@ -11,13 +11,10 @@ import Speech
 
 class AddRecordViewController: UIViewController {
     
-    @IBOutlet weak var recordImage: UIImageView!
-    @IBOutlet weak var recordButton: UISwitch!
+    @IBOutlet weak var recordButton: UIButton!
     
-    
-    @IBOutlet weak var startRecordButton: UIButton!
     @IBOutlet weak var pauseRecordButton: UIButton!
-    @IBOutlet weak var finishRecordButton: UIButton!
+    @IBOutlet weak var resumeRecordButton: UIButton!
     
     //untuk record m4a
     var recordingSession: AVAudioSession!
@@ -51,37 +48,24 @@ class AddRecordViewController: UIViewController {
             numberOfRecords = number
         }
         
-        // Finish record button tidak bisa di tekan
-        finishRecordButton.isEnabled = false
-        
-        // Pause record button di hide sebelum start recording
-        pauseRecordButton.isHidden = true
+        // Resume dan Pause button tidak dapat di tekan apabila belum mulai recording
+        resumeRecordButton.isEnabled = false
+        pauseRecordButton.isEnabled = false
         
         // Status awal recording
         isRecording = false
         
     }
-    
-//    @IBAction func recordButtonIsTapped(_ sender: UISwitch) {
-//        if sender.isOn == true{
-//            sender.isOn = false
-//            recordImage.layer.removeAllAnimations()
-//        }else if sender.isOn == false{
-//            sender.isOn = true
-//            recordImage.rotate360Degrees()
-//
-//            startRecording()
-//            finishRecordButton.isEnabled = true
-//        }
-//    }
-    
-    
-    @IBAction func startRecordButtonIsTapped(_ sender: Any) {
+
+    @IBAction func recordButtonIsTapped(_ sender: Any) {
         
-        finishRecordButton.isEnabled = true
+        pauseRecordButton.isEnabled = true
+        resumeRecordButton.isEnabled = false
         
-        pauseRecordButton.isHidden = false
-        startRecordButton.isHidden = true
+        // TODO: GANTI GAMBAR BUTTON DI BAGIAN INI
+        let image = UIImage(named: "Stop Button") as UIImage?
+        recordButton.setImage(image, for: .normal)
+        recordButton.isEnabled = true
         
         if isRecording == false {
             transcribe = true
@@ -89,27 +73,34 @@ class AddRecordViewController: UIViewController {
             print("AWAL RECORD")
         }
         else {
-            transcribe = true
-            resumeRecording()
-            print("RESUME RECORDING")
+            transcribe = false
+            saveRecording()
+            print("SELESAI RECORD")
+            
+            performSegue(withIdentifier: "toResult", sender: self)
         }
+        
+        // Status recording menjadi True
+        isRecording = true
     }
     
     @IBAction func pauseRecordButtonIsTapped(_ sender: Any) {
         transcribe = false
-        startRecordButton.isHidden = false
-        pauseRecordButton.isHidden = true
+        pauseRecordButton.isEnabled = false
+        resumeRecordButton.isEnabled = true
         
         pauseRecording()
         isRecording = true
     }
     
     
-    @IBAction func finishRecordButtonIsTapped(_ sender: Any) {
-        transcribe = false
-        recordButton.setOn(false, animated: true)
-        recordImage.layer.removeAllAnimations()
-        saveRecording()
+    @IBAction func resumeRecordButtonIsTapped(_ sender: Any) {
+        transcribe = true
+        pauseRecordButton.isEnabled = true
+        resumeRecordButton.isEnabled = false
+        
+        resumeRecording()
+        isRecording = true
     }
     
 //setup permission pengunaan mic
@@ -246,7 +237,7 @@ class AddRecordViewController: UIViewController {
     
     //haris - transferdata ke result tabel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toResultSegue"{
+        if segue.identifier == "toResult"{
             guard let result = segue.destination as? ResultTableViewController else {return}
             result.audioFileName = self.audioFileName
             result.listOfLiveWPMs = self.listOfLiveWPMs

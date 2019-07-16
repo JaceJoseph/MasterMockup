@@ -267,22 +267,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cp4-Uc-qTD">
-                                <rect key="frame" x="74" y="146" width="70" height="69"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start Rec"/>
-                                <connections>
-                                    <action selector="startRecordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="K7O-5F-F3Z"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0w-kJ-YfB">
-                                <rect key="frame" x="262" y="156" width="72" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Pause Rec"/>
-                                <connections>
-                                    <action selector="pauseRecordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="HEo-nn-Bdq"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xRY-8J-gc7">
                                 <rect key="frame" x="358" y="54" width="31" height="28"/>
                                 <constraints>
@@ -291,6 +275,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Button" image="button_close Copy"/>
+                                <connections>
+                                    <segue destination="Qga-Ic-Aou" kind="unwind" unwindAction="unwindToHome:" id="caK-R9-TCr"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="REv-X9-odF">
                                 <rect key="frame" x="30" y="232" width="354" height="360"/>
@@ -307,15 +294,24 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9sa-TW-hY2">
                                                 <rect key="frame" x="0.0" y="0.0" width="86" height="76"/>
-                                                <state key="normal" image="NewPauseButton"/>
+                                                <state key="normal" image="StartRecordingButton"/>
+                                                <connections>
+                                                    <action selector="recordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="vor-QN-hSz"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XiS-Vd-aYC">
                                                 <rect key="frame" x="0.0" y="76" width="86" height="75"/>
                                                 <state key="normal" image="NewPlayButton"/>
+                                                <connections>
+                                                    <action selector="resumeRecordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="zkf-BW-cgt"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yds-8K-US9">
                                                 <rect key="frame" x="0.0" y="151" width="86" height="76"/>
                                                 <state key="normal" image="NewRecordButton"/>
+                                                <connections>
+                                                    <action selector="pauseRecordButtonIsTapped:" destination="2Ar-lc-T54" eventType="touchUpInside" id="GVZ-9l-qCr"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -364,12 +360,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Recording" id="eFV-09-cPH"/>
                     <connections>
-                        <outlet property="pauseRecordButton" destination="W0w-kJ-YfB" id="5UX-DI-CSo"/>
-                        <outlet property="startRecordButton" destination="cp4-Uc-qTD" id="c2d-Zy-c1Q"/>
-                        <segue destination="8es-He-MwZ" kind="presentation" id="In6-YO-BMo"/>
+                        <outlet property="pauseRecordButton" destination="Yds-8K-US9" id="7DX-Xj-Z5k"/>
+                        <outlet property="recordButton" destination="9sa-TW-hY2" id="PtZ-Cd-DNw"/>
+                        <outlet property="resumeRecordButton" destination="XiS-Vd-aYC" id="vrC-xv-Rek"/>
+                        <segue destination="8es-He-MwZ" kind="presentation" identifier="toResult" id="In6-YO-BMo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vYm-Fr-7ww" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Qga-Ic-Aou" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1186.9565217391305" y="256.47321428571428"/>
         </scene>
@@ -711,10 +709,22 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7T-eP-fK7">
+                                <rect key="frame" x="361" y="54" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="3Gh-PV-HJS"/>
+                                    <constraint firstAttribute="height" constant="28" id="kyd-kc-Zn8"/>
+                                </constraints>
+                                <state key="normal" image="button_close Copy"/>
+                                <connections>
+                                    <segue destination="DtQ-gy-VSm" kind="unwind" unwindAction="unwindToHome:" id="k9I-7L-1sn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="RaK-Wa-3B3" firstAttribute="top" secondItem="4xp-qJ-SZL" secondAttribute="bottom" constant="15" id="1Cc-0w-K6n"/>
+                            <constraint firstItem="n7T-eP-fK7" firstAttribute="top" secondItem="IXK-UK-GMA" secondAttribute="top" constant="10" id="5Fq-qR-dV6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RaK-Wa-3B3" secondAttribute="trailing" constant="60" id="9Tx-fR-J3H"/>
                             <constraint firstItem="7mR-sE-5av" firstAttribute="leading" secondItem="IXK-UK-GMA" secondAttribute="leading" constant="20" id="DAq-iY-fke"/>
                             <constraint firstItem="IXK-UK-GMA" firstAttribute="trailing" secondItem="7mR-sE-5av" secondAttribute="trailing" constant="20" id="DV8-dt-3AQ"/>
@@ -722,6 +732,7 @@
                             <constraint firstItem="7mR-sE-5av" firstAttribute="top" secondItem="QdS-tQ-S8o" secondAttribute="bottom" constant="20" id="IfG-U8-qem"/>
                             <constraint firstItem="4xp-qJ-SZL" firstAttribute="centerX" secondItem="Oel-xv-Koc" secondAttribute="centerX" id="KJA-j2-M62"/>
                             <constraint firstItem="IXK-UK-GMA" firstAttribute="trailing" secondItem="j22-Rt-vjJ" secondAttribute="trailing" constant="17" id="N82-Rb-TKL"/>
+                            <constraint firstItem="IXK-UK-GMA" firstAttribute="trailing" secondItem="n7T-eP-fK7" secondAttribute="trailing" constant="25" id="SMi-2X-4CH"/>
                             <constraint firstItem="QdS-tQ-S8o" firstAttribute="top" secondItem="RaK-Wa-3B3" secondAttribute="bottom" constant="15" id="bBn-Xj-k5E"/>
                             <constraint firstItem="4xp-qJ-SZL" firstAttribute="top" secondItem="IXK-UK-GMA" secondAttribute="top" constant="40" id="bIL-XW-fGm"/>
                             <constraint firstItem="SuR-xh-UaL" firstAttribute="centerX" secondItem="Oel-xv-Koc" secondAttribute="centerX" id="cB6-mI-aHb"/>
@@ -740,19 +751,20 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lwx-dQ-PMI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DtQ-gy-VSm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1919" y="256"/>
         </scene>
     </scenes>
     <resources>
         <image name="Measure" width="354" height="35"/>
-        <image name="NewPauseButton" width="86" height="76"/>
         <image name="NewPlayButton" width="85" height="75"/>
         <image name="NewRecordButton" width="86" height="76"/>
         <image name="NextResult" width="32" height="32"/>
         <image name="PlayResult" width="27" height="32"/>
         <image name="PrevResult" width="32" height="32"/>
         <image name="SiKaset" width="211" height="134"/>
+        <image name="StartRecordingButton" width="87" height="76"/>
         <image name="button_close Copy" width="28" height="28"/>
         <image name="cassette" width="308" height="224"/>
         <image name="lines volume" width="411" height="80"/>
