@@ -259,7 +259,6 @@ class AddRecordViewController: UIViewController {
                 print("words:",listString.count)
                 print("wpm:",self.calculateWPM(numberOfWords: listString.count))
                 print("=============================")
-                self.WPMValue = self.calculateWPM(numberOfWords: listString.count)
             }
         }
     }
