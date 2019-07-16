@@ -10,9 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let dummyArray:[UIImage] = [#imageLiteral(resourceName: "VinylA"),#imageLiteral(resourceName: "VinylC"),#imageLiteral(resourceName: "VinylD"),#imageLiteral(resourceName: "VinylB")]
-    let dummyTitle:[String]=["Recording 1","Recording 2"]
-    let dummySubtitle:[String]=["Subtitle 1","Subtitle2"]
+    let dummyArray:[UIImage] = [#imageLiteral(resourceName: "cassette"),#imageLiteral(resourceName: "cassette copy 3"),#imageLiteral(resourceName: "cassette copy"),#imageLiteral(resourceName: "cassette copy 2"),#imageLiteral(resourceName: "cassette copy 4"),#imageLiteral(resourceName: "cassettewhite")]
+    let dummyFavTitle:[String]=["Recording 1","Recording 2"]
+    let dummyFavSubtitle:[String]=["Subtitle 1","Subtitle2"]
     
     // Variable Penampung untuk record dari ResultTableViewController
     var recordTitle: [String] = []
@@ -54,7 +54,7 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
         if dummyArray.isEmpty == false{
             row = dummyArray[indexPath.row]
         }else{
-            row = #imageLiteral(resourceName: "Vinyl Only")
+            row = #imageLiteral(resourceName: "cassette")
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recordsCell", for: indexPath) as! RecordsCollectionViewCell
         cell.setUI(image: row)
@@ -87,8 +87,8 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 
 extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if dummyTitle.isEmpty == false{
-            return dummyTitle.count
+        if dummyFavTitle.isEmpty == false{
+            return dummyFavTitle.count
         }else{
             return 1
         }
@@ -96,8 +96,8 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var row:[String] = []
-        if dummyTitle.isEmpty == false{
-            row.append(contentsOf: [dummyTitle[indexPath.row],dummySubtitle[indexPath.row]])
+        if dummyFavTitle.isEmpty == false{
+            row.append(contentsOf: [dummyFavTitle[indexPath.row],dummyFavSubtitle[indexPath.row]])
         }else{
             row.append(contentsOf: ["There is no recoding","-"])
         }
