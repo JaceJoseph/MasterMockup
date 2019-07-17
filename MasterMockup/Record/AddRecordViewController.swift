@@ -27,6 +27,10 @@ class AddRecordViewController: UIViewController {
     var isRecording: Bool = false
     // Add on Tommy
     
+    // list filler word
+    var detectedFillerWord: [String:Int] = [:]
+    var listedFillerWord = ["so", "like", "I mean", "you know", "ok", "so basicly", "OK", "literaly"]
+    
     //untuk live transcribe
     let audioEngine = AVAudioEngine()
     let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
@@ -192,6 +196,34 @@ class AddRecordViewController: UIViewController {
                         self.listOfLiveWPMs.append(liveWPMInfo(wpmValue: Int(currentLiveWPM), timeTaken: self.previousTime!))
                         self.previousWordCount = numOfWords
                     }
+                    
+                    // detecting filler word
+                    let word = bestString.components(separatedBy: " ")
+                    let newWord = word.last!
+                    var lastWord = ""
+                    if numOfWords == 1 {
+                        lastWord = word[0]
+                    }else{
+                        lastWord = word[numOfWords - 2]
+                    }
+                    let comparedWord = "\(lastWord) \(newWord)"
+                    for word in self.listedFillerWord {
+                        if newWord == word {
+                            if self.detectedFillerWord["\(newWord)"] == nil{
+                                self.detectedFillerWord["\(newWord)"] = 1
+                            }else{
+                                self.detectedFillerWord["\(newWord)"] = self.detectedFillerWord["\(newWord)"]! + 1
+                            }
+                            
+                        } else if comparedWord == word {
+                            if self.detectedFillerWord["\(comparedWord)"] == nil{
+                                self.detectedFillerWord["\(comparedWord)"] = 1
+                            }else{
+                                self.detectedFillerWord["\(comparedWord)"] = self.detectedFillerWord["\(comparedWord)"]! + 1
+                            }
+                        }
+                    }
+                    print("filler Word List: \(self.detectedFillerWord)")
                 }else{
                     print(error)
                 }
