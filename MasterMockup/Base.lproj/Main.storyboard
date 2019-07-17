@@ -748,7 +748,6 @@
                     <connections>
                         <outlet property="cassetteImage" destination="4xp-qJ-SZL" id="hp1-Xu-dXq"/>
                         <outlet property="resultCollectionView" destination="j22-Rt-vjJ" id="CxG-lD-7GY"/>
-                        <outlet property="resultPageControl" destination="SuR-xh-UaL" id="97S-tr-gVH"/>
                         <outlet property="resultPageController" destination="SuR-xh-UaL" id="n1M-jr-8E8"/>
                     </connections>
                 </viewController>
