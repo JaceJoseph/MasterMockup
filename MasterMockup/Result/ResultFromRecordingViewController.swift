@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Speech
 
 class ResultFromRecordingViewController: UIViewController {
     
@@ -14,10 +15,12 @@ class ResultFromRecordingViewController: UIViewController {
     @IBOutlet weak var resultCollectionView: UICollectionView!
     @IBOutlet weak var resultPageController: UIPageControl!
     
-    
+    //url lokasi recording yang baru direcord
     var audioFileName: URL!
+    //list of struct berisi semua live wpm dan time nya
     var listOfLiveWPMs:[liveWPMInfo]=[liveWPMInfo]()
-    
+    //audio engine utk recognition wpm akurat
+    let audioEngine = AVAudioEngine()
     // Pencatatan Number of Records (DATA INI TIDAK DITAMPILKAN DI SINI, PERANTARA KE HALAMAN ALL RECORDS)
     var numOfRecordsTemporary: Int = 0
     
@@ -31,6 +34,7 @@ class ResultFromRecordingViewController: UIViewController {
         super.viewDidLoad()
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
+        print("fast avg wpm:",getFastAvgWpm())
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -39,6 +43,16 @@ class ResultFromRecordingViewController: UIViewController {
         
         // Function to append to AllRecordViewController
         segueToAllRecord?.addRecord(name: String(numOfRecordsTemporary))
+    }
+    
+    //sum dari semua total wpm dibagi jumblah wpm utk average
+    func getFastAvgWpm()->Double{
+        var totalWPM:Double = 0
+        let wpmCount:Int = listOfLiveWPMs.count
+        for wpmInfo in listOfLiveWPMs{
+            totalWPM += wpmInfo.wpmValue
+        }
+        return Double(totalWPM/Double(wpmCount))
     }
 
 }

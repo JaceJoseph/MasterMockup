@@ -189,7 +189,7 @@ class AddRecordViewController: UIViewController {
                     if ((numOfWords - self.previousWordCount) >= self.checkLiveWPMEvery){
                         let currentLiveWPM = self.calculateLiveWPM(numberOfAddedWords: (numOfWords - self.previousWordCount))
                         print("current wpm:\(currentLiveWPM)")
-                        self.listOfLiveWPMs.append(liveWPMInfo(wpmValue: Int(currentLiveWPM), timeTaken: self.previousTime!))
+                        self.listOfLiveWPMs.append(liveWPMInfo(wpmValue: Double(currentLiveWPM), timeTaken: self.previousTime!))
                         self.previousWordCount = numOfWords
                     }
                 }else{
@@ -249,9 +249,10 @@ class AddRecordViewController: UIViewController {
     //haris - transferdata ke result tabel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toResult"{
+            stopTranscribing()
             guard let result = segue.destination as? ResultFromRecordingViewController else {return}
             result.audioFileName = self.audioFileName
-            // result.listOfLiveWPMs = self.listOfLiveWPMs
+            result.listOfLiveWPMs = self.listOfLiveWPMs
             result.numOfRecordsTemporary = self.numberOfRecords
         }
     }
