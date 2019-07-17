@@ -24,7 +24,7 @@ class AllRecordViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    // Fungsi untuk menambah record yang akan di gunakan di 
+    // Fungsi untuk menambah record yang akan di gunakan di ResultFromRecordingViewController
     func addRecord(name: String) {
         listOfRecording.append(name)
     }
@@ -33,14 +33,14 @@ class AllRecordViewController: UIViewController {
 
 extension AllRecordViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyTitle.count
+        return listOfRecording.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let selector = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "allRecordsCell") as! RecordListTableViewCell
         
-        cell.setUI(title: dummyTitle[selector], subtitle: dummySubtitle[selector])
+        cell.setUI(title: listOfRecording[selector], subtitle: listOfRecording[selector])
         
         return cell
     }

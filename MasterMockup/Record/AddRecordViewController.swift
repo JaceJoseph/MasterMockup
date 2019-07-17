@@ -251,7 +251,7 @@ class AddRecordViewController: UIViewController {
         if segue.identifier == "toResult"{
             guard let result = segue.destination as? ResultFromRecordingViewController else {return}
             result.audioFileName = self.audioFileName
-            result.listOfLiveWPMs = self.listOfLiveWPMs
+            // result.listOfLiveWPMs = self.listOfLiveWPMs
             result.numOfRecordsTemporary = self.numberOfRecords
         }
     }

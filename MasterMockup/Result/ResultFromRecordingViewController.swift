@@ -32,6 +32,14 @@ class ResultFromRecordingViewController: UIViewController {
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let segueToAllRecord = segue.destination as? AllRecordViewController
+        
+        // Function to append to AllRecordViewController
+        segueToAllRecord?.addRecord(name: String(numOfRecordsTemporary))
+    }
 
 }
 extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectionViewDataSource{
