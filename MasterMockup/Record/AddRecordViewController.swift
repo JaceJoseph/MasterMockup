@@ -37,7 +37,7 @@ class AddRecordViewController: UIViewController {
     let checkLiveWPMEvery:Int = 10
     var previousWordCount:Int = 0
     var listOfLiveWPMs:[liveWPMInfo]=[liveWPMInfo]()
-    var transcribe:Bool = true
+    //var transcribe:Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,12 +68,11 @@ class AddRecordViewController: UIViewController {
         recordButton.isEnabled = true
         
         if isRecording == false {
-            transcribe = true
             startRecording()
             print("AWAL RECORD")
         }
         else {
-            transcribe = false
+            stopTranscribing()
             saveRecording()
             print("SELESAI RECORD")
             
@@ -85,7 +84,7 @@ class AddRecordViewController: UIViewController {
     }
     
     @IBAction func pauseRecordButtonIsTapped(_ sender: Any) {
-        transcribe = false
+        stopTranscribing()
         pauseRecordButton.isEnabled = false
         resumeRecordButton.isEnabled = true
         
@@ -95,10 +94,12 @@ class AddRecordViewController: UIViewController {
     
     
     @IBAction func resumeRecordButtonIsTapped(_ sender: Any) {
-        transcribe = true
+        print("resumed")
         pauseRecordButton.isEnabled = true
         resumeRecordButton.isEnabled = false
-        
+        print("try enabling live transcribe")
+        liveTranscribe()
+        print("success enabling live transcribe")
         resumeRecording()
         isRecording = true
     }
@@ -147,53 +148,63 @@ class AddRecordViewController: UIViewController {
             audioRecorder.record()
         } catch {}
         //live transcribe utk live wpm
+        liveTranscribe()
+    }
+    
+    func liveTranscribe(){
         DispatchQueue.global(qos: .userInteractive).async {
             self.setupTranscribingPermission()
             print("live recog")
             //self.startTime = DispatchTime.now()
-            if self.transcribe{
+            self.previousTime = DispatchTime.now()
+            let node = self.audioEngine.inputNode
+            let recordingFormat = node.outputFormat(forBus: 0)
+            node.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat){ buffer, _ in self.request.append(buffer)}
+            
+            self.audioEngine.prepare()
+            do {
+                try self.audioEngine.start()
+                //self.startTime = DispatchTime.now()
                 self.previousTime = DispatchTime.now()
-                let node = self.audioEngine.inputNode
-                let recordingFormat = node.outputFormat(forBus: 0)
-                node.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat){ buffer, _ in self.request.append(buffer)}
-                
-                self.audioEngine.prepare()
-                do {
-                    try self.audioEngine.start()
-                    //self.startTime = DispatchTime.now()
-                    self.previousTime = DispatchTime.now()
-                } catch {
+            } catch {
+                print(error)
+            }
+            
+            guard let myRecognizer = SFSpeechRecognizer() else {
+                return
+            }
+            if !myRecognizer.isAvailable{
+                return
+            }
+            
+            self.recognitionTask = self.speechRecognizer?.recognitionTask(with: self.request, resultHandler: { result, error in
+                if let result = result {
+                    let bestString = result.bestTranscription.formattedString
+                    print(bestString)
+                    let numOfWords = self.getNumberOfWords(words: bestString)
+                    //calculate live wpm every checkLiveWPMEvery words spoken
+                    print("numofwords:",numOfWords)
+                    print("prev word count:",self.previousWordCount)
+                    print("num of words till next wpm check:",(numOfWords - self.previousWordCount),"/",self.checkLiveWPMEvery)
+                    if ((numOfWords - self.previousWordCount) >= self.checkLiveWPMEvery){
+                        let currentLiveWPM = self.calculateLiveWPM(numberOfAddedWords: (numOfWords - self.previousWordCount))
+                        print("current wpm:\(currentLiveWPM)")
+                        self.listOfLiveWPMs.append(liveWPMInfo(wpmValue: Int(currentLiveWPM), timeTaken: self.previousTime!))
+                        self.previousWordCount = numOfWords
+                    }
+                }else{
                     print(error)
                 }
-                
-                guard let myRecognizer = SFSpeechRecognizer() else {
-                    return
-                }
-                if !myRecognizer.isAvailable{
-                    return
-                }
-                
-                self.recognitionTask = self.speechRecognizer?.recognitionTask(with: self.request, resultHandler: { result, error in
-                    if let result = result {
-                        let bestString = result.bestTranscription.formattedString
-                        print(bestString)
-                        let numOfWords = self.getNumberOfWords(words: bestString)
-                        //calculate live wpm every checkLiveWPMEvery words spoken
-                        print("numofwords:",numOfWords)
-                        print("prev word count:",self.previousWordCount)
-                        print("num of words till next wpm check:",(numOfWords - self.previousWordCount),"/",self.checkLiveWPMEvery)
-                        if ((numOfWords - self.previousWordCount) >= self.checkLiveWPMEvery){
-                            let currentLiveWPM = self.calculateLiveWPM(numberOfAddedWords: (numOfWords - self.previousWordCount))
-                            print("current wpm:\(currentLiveWPM)")
-                            self.listOfLiveWPMs.append(liveWPMInfo(wpmValue: Int(currentLiveWPM), timeTaken: self.previousTime!))
-                            self.previousWordCount = numOfWords
-                        }
-                    }else{
-                        print(error)
-                    }
-                })
-            }
+            })
         }
+    }
+    
+    func stopTranscribing(){
+        print("stop transcribing")
+        self.audioEngine.stop()
+        self.recognitionTask?.cancel()
+        self.audioEngine.inputNode.removeTap(onBus: 0)
+        self.previousWordCount = 0
     }
     
 //resume recording
