@@ -10,6 +10,9 @@ import UIKit
 
 class AllRecordViewController: UIViewController {
 
+    var numberOfAllRecords: Int = 0
+    var listOfRecording = [String]()
+    
     @IBOutlet weak var allRecordTableView: UITableView!
     let dummyTitle = ["Title1","Title2"]
     let dummySubtitle = ["Subtitle1","Subtitle2"]
@@ -19,6 +22,11 @@ class AllRecordViewController: UIViewController {
         allRecordTableView.delegate = self
         allRecordTableView.dataSource = self
         // Do any additional setup after loading the view.
+    }
+    
+    // Fungsi untuk menambah record yang akan di gunakan di 
+    func addRecord(name: String) {
+        listOfRecording.append(name)
     }
 
 }

@@ -70,7 +70,7 @@
 		70B5E22222DC5B7600698753 /* Result */ = {
 			isa = PBXGroup;
 			children = (
-				661EE09D22DBFC240043661F /* ResultTableViewController.swift */,
+				700F1FB122DEC5BB00B72A44 /* ResultFromRecordingViewController.swift */,
 				70B5E21D22DC53CD00698753 /* OpenRecordingViewController.swift */,
 				4C7F934222DCB05300FF540C /* LiveWPMInfo.swift */,
 			);
@@ -81,15 +81,9 @@
 			isa = PBXGroup;
 			children = (
 				70EBBD8522D828AA0037D10A /* AddRecordViewController.swift */,
+				70EBB35422DCC0F700121CF8 /* AllRecordViewController.swift */,
 			);
 			path = Record;
-			sourceTree = "<group>";
-		};
-		70B5E22422DC5B8200698753 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		70EBBD6222D81F620037D10A = {
@@ -111,7 +105,6 @@
 		70EBBD6D22D81F620037D10A /* MasterMockup */ = {
 			isa = PBXGroup;
 			children = (
-				70B5E22422DC5B8200698753 /* New Group */,
 				70B5E22322DC5B7C00698753 /* Record */,
 				70B5E22222DC5B7600698753 /* Result */,
 				70B5E22122DC5B6D00698753 /* Home */,
@@ -123,8 +116,7 @@
 				70EBBD7D22D81F650037D10A /* Info.plist */,
 				70EBBD7522D81F620037D10A /* MasterMockup.xcdatamodeld */,
 				70B5E22722DC5FA000698753 /* Result1CollectionViewCell.swift */,
-				70EBB35422DCC0F700121CF8 /* AllRecordViewController.swift */,
-				700F1FB122DEC5BB00B72A44 /* ResultFromRecordingViewController.swift */,
+				661EE09D22DBFC240043661F /* ResultTableViewController.swift */,
 			);
 			path = MasterMockup;
 			sourceTree = "<group>";

@@ -9,10 +9,17 @@
 import UIKit
 
 class ResultFromRecordingViewController: UIViewController {
-
+    
     @IBOutlet weak var cassetteImage: UIImageView!
     @IBOutlet weak var resultCollectionView: UICollectionView!
     @IBOutlet weak var resultPageController: UIPageControl!
+    
+    
+    var audioFileName: URL!
+    var listOfLiveWPMs:[liveWPMInfo]=[liveWPMInfo]()
+    
+    // Pencatatan Number of Records (DATA INI TIDAK DITAMPILKAN DI SINI, PERANTARA KE HALAMAN ALL RECORDS)
+    var numOfRecordsTemporary: Int = 0
     
     let image:UIImage = #imageLiteral(resourceName: "SiKaset")
     let comments:[String]=["SomePlaceholder","SomePlaceholder","SomePlaceholder"]

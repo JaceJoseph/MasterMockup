@@ -249,7 +249,7 @@ class AddRecordViewController: UIViewController {
     //haris - transferdata ke result tabel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toResult"{
-            guard let result = segue.destination as? ResultTableViewController else {return}
+            guard let result = segue.destination as? ResultFromRecordingViewController else {return}
             result.audioFileName = self.audioFileName
             result.listOfLiveWPMs = self.listOfLiveWPMs
             result.numOfRecordsTemporary = self.numberOfRecords
