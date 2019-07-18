@@ -34,10 +34,15 @@ class ResultFromRecordingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.result[0] = String(format: "%.2f WPM", getFastAvgWpm())
+        var wpm:Double = getFastAvgWpm()
+        if(wpm.isNaN){
+            wpm = 0
+        }
+        self.result[0] = String(format: "%.2f WPM",wpm )
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
-        let triangle = TriangleView(wpm: 0)
+        //MARK: TEST DI SINI
+        let triangle = TriangleView(wpm: getFastAvgWpm())
         triangle.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 0)
         resultCollectionView.addSubview(triangle)
     }
