@@ -62,7 +62,8 @@ class AddRecordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        recordButton.isEnabled = false
+        self.setupTranscribingPermission()
         // Do any additional setup after loading the view.
         //Inisialisasi UserDefault
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int {
@@ -187,7 +188,6 @@ class AddRecordViewController: UIViewController {
     
     func liveTranscribe(){
         DispatchQueue.global(qos: .userInteractive).async {
-            self.setupTranscribingPermission()
             print("live recog")
             //self.startTime = DispatchTime.now()
             self.previousTime = DispatchTime.now()
@@ -309,7 +309,9 @@ class AddRecordViewController: UIViewController {
         SFSpeechRecognizer.requestAuthorization { [unowned self] authStatus in
             DispatchQueue.main.async {
                 if authStatus == .authorized {
-                    print("Good to go!")
+                    self.recordButton.isEnabled = true
+                }else{
+                    self.recordButton.isEnabled = false
                 }
             }
         }

@@ -131,6 +131,7 @@ class ResultFromRecordingViewController: UIViewController {
             }
         }
     }
+    
     //sum dari semua total wpm dibagi jumblah wpm utk average
     func getFastAvgWpm()->Double{
         var totalWPM:Double = 0

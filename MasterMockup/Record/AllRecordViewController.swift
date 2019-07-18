@@ -68,13 +68,17 @@ extension AllRecordViewController:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        numberOfAllRecords = indexPath.row + 1
         performSegue(withIdentifier: "allRecordsToResult", sender: self)
+        
+        print("You select row \(numberOfAllRecords), Tryin to open recording\(numberOfAllRecords).m4a")
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "allRecordsToResult"{
             guard let result = segue.destination as? OpenRecordingViewController else {return}
+            result.numberOfRecordingThatWillBeOpened = numberOfAllRecords
             
         }
     }

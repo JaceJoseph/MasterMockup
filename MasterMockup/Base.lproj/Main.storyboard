@@ -633,6 +633,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Xh-fF-Jnk">
                                         <rect key="frame" x="62" y="0.0" width="27" height="32"/>
                                         <state key="normal" image="PlayResult"/>
+                                        <connections>
+                                            <action selector="playbackRecordingButtonIsTapped:" destination="weu-wu-wqi" eventType="touchUpInside" id="pQq-Ii-bTd"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6z5-N0-gQu">
                                         <rect key="frame" x="119" y="0.0" width="32" height="32"/>
@@ -664,6 +667,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Open Recording" id="Ibm-0p-4gW"/>
                     <connections>
+                        <outlet property="playbackRecordingButton" destination="9Xh-fF-Jnk" id="Mzr-q6-sbZ"/>
                         <outlet property="resultCollectionView" destination="mQk-OC-XOK" id="qDN-dF-Pw0"/>
                         <outlet property="resultPageControl" destination="zOw-3k-7Rh" id="7ME-zn-oty"/>
                     </connections>
