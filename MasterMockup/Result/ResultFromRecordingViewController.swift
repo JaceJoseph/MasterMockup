@@ -49,7 +49,11 @@ class ResultFromRecordingViewController: UIViewController {
         if(wpm.isNaN){
             wpm = 0
         }
-        var saveResults = CoreDataHelper(appDelegate: UIApplication.shared.delegate as? AppDelegate)
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        let saveResults = CoreDataHelper(appDelegate: appDelegate)
         saveResults.insertData(data: RecordingStruct(averageWPM: wpm, recordingName: audioFileNumber, fillerWords: fillerWordList))
         self.result[0] = String(format: "%.2f WPM",wpm )
         resultCollectionView.delegate = self
@@ -178,7 +182,7 @@ extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectio
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

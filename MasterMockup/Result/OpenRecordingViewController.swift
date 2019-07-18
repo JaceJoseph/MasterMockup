@@ -20,11 +20,17 @@ class OpenRecordingViewController: UIViewController {
     var bootingRecorderFile: Bool = false
     
     let image:UIImage = #imageLiteral(resourceName: "SiKaset")
-    let comments:[String]=["SomePlaceholder","SomePlaceholder"]
-    let result:[String]=["Placeholder","Placeholder"]
+    var comments:[String]=["SomePlaceholder","SomePlaceholder"]
+    var result:[String]=["Placeholder","Placeholder"]
     let indicator:[UIImage]=[#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure")]
-    let cellTitle:[String] = ["Pacing","Filler Words",]
-
+    let cellTitle:[String] = ["Pacing","Filler Words"]
+    
+    var audioPlayer: AVAudioPlayer!
+    let audioSession = AVAudioSession.sharedInstance()
+    
+    var fillerWordKey = [String]()
+    var fillerWordValue = [Int]()
+    
     override func viewDidLoad() {
         resultPageControl.numberOfPages = 2
         resultCollectionView.delegate = self
@@ -36,8 +42,55 @@ class OpenRecordingViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        let load = CoreDataHelper(appDelegate: appDelegate)
+        var resultData:RecordingStruct? = load.getData(recordingName: "recording\(numberOfRecordingThatWillBeOpened)")
+        if let data = resultData{
+            self.result[0] = String(format: "%.2f WPM",data.averageWPM )
+            resultCollectionView.delegate = self
+            resultCollectionView.dataSource = self
+            result[1] = "\(getFillerWordSum(fillerWordList: data.fillerWords)) filler word found"
+    //        bootingRecorderFile = false
+    //        //MARK: TEST DI SINI
+            let triangle = TriangleView(wpm: data.averageWPM)
+            triangle.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 0)
+            resultCollectionView.addSubview(triangle)
+        }
         print("File recording\(numberOfRecordingThatWillBeOpened).m4a opened !!")
+    }
+    
+    // sum dari fillerwordlist
+    func getFillerWordSum(fillerWordList:[String:Int]) -> Int {
+        var sumFillerWord = 0
+        for word in fillerWordList {
+            sumFillerWord += word.value
+            fillerWordValue.append(word.value)
+            fillerWordKey.append(word.key)
+        }
+        setFillerWordComment(fillerWordList:fillerWordList)
+        return sumFillerWord
+    }
+    
+    // set komentar untuk filler word
+    func setFillerWordComment(fillerWordList:[String:Int]) {
+        var dumy = ""
+        var finalComment = ""
+        if fillerWordKey.count == 0 {
+            comments[1] = "Great ! there is no filler word we hear from your presentation"
+        }else{
+            for word in fillerWordList {
+                dumy = "\(word.key) : \(word.value)"
+                if finalComment == ""{
+                    finalComment = dumy
+                }else{
+                    finalComment = "\(finalComment) \n \(dumy)"
+                }
+            }
+            comments[1] = finalComment
+        }
     }
     
     @IBAction func playbackRecordingButtonIsTapped(_ sender: Any) {

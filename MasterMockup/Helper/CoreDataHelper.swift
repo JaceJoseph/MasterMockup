@@ -19,29 +19,33 @@ class CoreDataHelper{
             appDelegate?.persistentContainer.viewContext
     }
     func insertData(data:RecordingStruct)->Bool{
-        let entity =
-            NSEntityDescription.entity(forEntityName: "Recording",
-                                       in: managedContext)!
-        
-        let dicc = NSManagedObject(entity: entity,
-                                   insertInto: managedContext)
-        dicc.setValue("\(data.fillerWords)", forKeyPath: "fillerWords")
-        dicc.setValue("\(data.recordingName)", forKey: "recordingName")
-        dicc.setValue(data.averageWPM, forKey: "averageWPM")
-        do {
-            try managedContext.save()
-            dicts.append(dicc)
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+        do{
+            let entity =
+                NSEntityDescription.entity(forEntityName: "Recording",
+                                           in: managedContext)!
+            
+            let dicc = NSManagedObject(entity: entity,
+                                       insertInto: managedContext)
+            dicc.setValue("\(data.fillerWords)", forKeyPath: "fillerWords")
+            dicc.setValue("\(data.recordingName)", forKey: "recordingName")
+            dicc.setValue(data.averageWPM, forKey: "averageWPM")
+            do {
+                try managedContext.save()
+                dicts.append(dicc)
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+                return false
+            }
+            return true
+        }catch{
             return false
         }
-        return true
     }
     
     func getData(recordingName:String)->RecordingStruct?{
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Recording")
-        fetchRequest.predicate = NSPredicate(format: "firstName == %@", recordingName)
+        fetchRequest.predicate = NSPredicate(format: "recordingName == %@", recordingName)
         do {
             res = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
@@ -52,8 +56,12 @@ class CoreDataHelper{
         let name = res.first?.value(forKey: "recordingName") as! String
         let wpm = res.first?.value(forKey: "averageWPM") as! Double
         let stringToParse = fillerwords.replacingOccurrences(of: "[", with: "{").replacingOccurrences(of: "]", with: "}")
-        let dict = convertToDictionary(text: stringToParse)
-        return RecordingStruct(averageWPM: wpm, recordingName: name, fillerWords: dict!)
+        if stringToParse != "{:}"{
+            let dict = convertToDictionary(text: stringToParse)
+            return RecordingStruct(averageWPM: wpm, recordingName: name, fillerWords: dict!)
+        }else{
+            return RecordingStruct(averageWPM: wpm, recordingName: name, fillerWords: [String:Int]())
+        }
     }
     
     func convertToDictionary(text: String) -> [String: Int]? {
