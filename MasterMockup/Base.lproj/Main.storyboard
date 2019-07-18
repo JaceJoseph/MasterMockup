@@ -188,20 +188,20 @@
                                 <rect key="frame" x="0.0" y="196" width="414" height="666"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="allRecordsCell" rowHeight="70" id="2jN-qk-nXu" customClass="RecordListTableViewCell" customModule="MasterMockup" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="allRecordsCell" rowHeight="70" id="2jN-qk-nXu">
                                         <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2jN-qk-nXu" id="sla-Hz-Jmg">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GqV-yw-M1j">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="70" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GqV-yw-M1j">
                                                     <rect key="frame" x="20" y="5" width="374" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHu-M5-cfw">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="71" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHu-M5-cfw">
                                                     <rect key="frame" x="20" y="31" width="354" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -217,12 +217,12 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="PHu-M5-cfw" secondAttribute="trailing" constant="20" id="wFc-Yz-KMo"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="subtitileTitleLabel" destination="PHu-M5-cfw" id="xcJ-cu-Mmp"/>
-                                            <outlet property="titleLabel" destination="GqV-yw-M1j" id="oKp-cw-lxr"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Sjr-Q1-j1u" id="27Y-AD-ldO"/>
+                                    <outlet property="delegate" destination="Sjr-Q1-j1u" id="jbh-Z7-Osy"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -335,7 +335,7 @@
                                     <constraint firstAttribute="height" constant="76" id="sVT-0T-8fW"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94f-Pf-Hp7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94f-Pf-Hp7">
                                 <rect key="frame" x="80" y="728" width="254" height="50.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="42"/>
                                 <nil key="textColor"/>
@@ -360,6 +360,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Recording" id="eFV-09-cPH"/>
                     <connections>
+                        <outlet property="elapsedTimeLabel" destination="94f-Pf-Hp7" id="wNP-n0-6li"/>
                         <outlet property="pauseRecordButton" destination="Yds-8K-US9" id="7DX-Xj-Z5k"/>
                         <outlet property="recordButton" destination="9sa-TW-hY2" id="PtZ-Cd-DNw"/>
                         <outlet property="resumeRecordButton" destination="XiS-Vd-aYC" id="vrC-xv-Rek"/>
@@ -702,6 +703,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NkC-Xd-C1g">
                                         <rect key="frame" x="62" y="0.0" width="27" height="32"/>
                                         <state key="normal" image="PlayResult"/>
+                                        <connections>
+                                            <action selector="playbackButtonIsTapped:" destination="8es-He-MwZ" eventType="touchUpInside" id="2Qn-uG-29u"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UsE-gS-sKP">
                                         <rect key="frame" x="119" y="0.0" width="32" height="32"/>
@@ -747,6 +751,7 @@
                     <navigationItem key="navigationItem" title="Open Recording" id="Bhc-t1-rSL"/>
                     <connections>
                         <outlet property="cassetteImage" destination="4xp-qJ-SZL" id="hp1-Xu-dXq"/>
+                        <outlet property="playbackButton" destination="NkC-Xd-C1g" id="UVr-5r-LN1"/>
                         <outlet property="resultCollectionView" destination="j22-Rt-vjJ" id="CxG-lD-7GY"/>
                         <outlet property="resultPageController" destination="SuR-xh-UaL" id="n1M-jr-8E8"/>
                     </connections>
