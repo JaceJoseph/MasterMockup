@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4C7F934322DCB05300FF540C /* LiveWPMInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F934222DCB05300FF540C /* LiveWPMInfo.swift */; };
+		4CC09D9622E067CB00888BF3 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC09D9522E067CB00888BF3 /* CoreDataHelper.swift */; };
+		4CC09D9822E0688100888BF3 /* RecordingStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC09D9722E0688100888BF3 /* RecordingStruct.swift */; };
+		4CC09D9A22E06D9500888BF3 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC09D9922E06D9500888BF3 /* TriangleView.swift */; };
 		58125EA222DF3AA300E899FC /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58125EA122DF3AA300E899FC /* Stopwatch.swift */; };
 		661EE09E22DBFC240043661F /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661EE09D22DBFC240043661F /* ResultTableViewController.swift */; };
 		700F1FB222DEC5BB00B72A44 /* ResultFromRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700F1FB122DEC5BB00B72A44 /* ResultFromRecordingViewController.swift */; };
@@ -28,6 +31,9 @@
 
 /* Begin PBXFileReference section */
 		4C7F934222DCB05300FF540C /* LiveWPMInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveWPMInfo.swift; sourceTree = "<group>"; };
+		4CC09D9522E067CB00888BF3 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		4CC09D9722E0688100888BF3 /* RecordingStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStruct.swift; sourceTree = "<group>"; };
+		4CC09D9922E06D9500888BF3 /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		58125EA122DF3AA300E899FC /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
 		661EE09D22DBFC240043661F /* ResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
 		700F1FB122DEC5BB00B72A44 /* ResultFromRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultFromRecordingViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +65,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4CC09D9B22E06E0E00888BF3 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				4C7F934222DCB05300FF540C /* LiveWPMInfo.swift */,
+				58125EA122DF3AA300E899FC /* Stopwatch.swift */,
+				4CC09D9722E0688100888BF3 /* RecordingStruct.swift */,
+				4CC09D9922E06D9500888BF3 /* TriangleView.swift */,
+				4CC09D9522E067CB00888BF3 /* CoreDataHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		70B5E22122DC5B6D00698753 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,7 +92,6 @@
 			children = (
 				700F1FB122DEC5BB00B72A44 /* ResultFromRecordingViewController.swift */,
 				70B5E21D22DC53CD00698753 /* OpenRecordingViewController.swift */,
-				4C7F934222DCB05300FF540C /* LiveWPMInfo.swift */,
 			);
 			path = Result;
 			sourceTree = "<group>";
@@ -107,6 +124,7 @@
 		70EBBD6D22D81F620037D10A /* MasterMockup */ = {
 			isa = PBXGroup;
 			children = (
+				4CC09D9B22E06E0E00888BF3 /* Helper */,
 				70B5E22322DC5B7C00698753 /* Record */,
 				70B5E22222DC5B7600698753 /* Result */,
 				70B5E22122DC5B6D00698753 /* Home */,
@@ -119,7 +137,6 @@
 				70EBBD7522D81F620037D10A /* MasterMockup.xcdatamodeld */,
 				70B5E22722DC5FA000698753 /* Result1CollectionViewCell.swift */,
 				661EE09D22DBFC240043661F /* ResultTableViewController.swift */,
-				58125EA122DF3AA300E899FC /* Stopwatch.swift */,
 			);
 			path = MasterMockup;
 			sourceTree = "<group>";
@@ -195,10 +212,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CC09D9622E067CB00888BF3 /* CoreDataHelper.swift in Sources */,
 				70EBBD7122D81F620037D10A /* ViewController.swift in Sources */,
+				4CC09D9822E0688100888BF3 /* RecordingStruct.swift in Sources */,
 				70EBBD7722D81F620037D10A /* MasterMockup.xcdatamodeld in Sources */,
 				700F1FB222DEC5BB00B72A44 /* ResultFromRecordingViewController.swift in Sources */,
 				70EBBD6F22D81F620037D10A /* AppDelegate.swift in Sources */,
+				4CC09D9A22E06D9500888BF3 /* TriangleView.swift in Sources */,
 				70EBBD8622D828AA0037D10A /* AddRecordViewController.swift in Sources */,
 				58125EA222DF3AA300E899FC /* Stopwatch.swift in Sources */,
 				661EE09E22DBFC240043661F /* ResultTableViewController.swift in Sources */,

@@ -13,13 +13,13 @@ class OpenRecordingViewController: UIViewController {
     @IBOutlet weak var resultCollectionView: UICollectionView!
     
     let image:UIImage = #imageLiteral(resourceName: "SiKaset")
-    let comments:[String]=["SomePlaceholder","SomePlaceholder","SomePlaceholder"]
-    let result:[String]=["Placeholder","Placeholder","Placeholder"]
-    let indicator:[UIImage]=[#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure")]
-    let cellTitle:[String] = ["Pacing","Filler Words","Intonation"]
+    let comments:[String]=["SomePlaceholder","SomePlaceholder"]
+    let result:[String]=["Placeholder","Placeholder"]
+    let indicator:[UIImage]=[#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure")]
+    let cellTitle:[String] = ["Pacing","Filler Words",]
 
     override func viewDidLoad() {
-        resultPageControl.numberOfPages = 3
+        resultPageControl.numberOfPages = 2
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
         
@@ -34,7 +34,7 @@ class OpenRecordingViewController: UIViewController {
 
 extension OpenRecordingViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

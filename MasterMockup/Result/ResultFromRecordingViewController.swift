@@ -38,10 +38,10 @@ class ResultFromRecordingViewController: UIViewController {
     var audioPlayer: AVAudioPlayer!
     let audioSession = AVAudioSession.sharedInstance()
     
-    var comments:[String]=["SomePlaceholder","SomePlaceholder","SomePlaceholder"]
-    var result:[String]=["Placeholder","Placeholder","Placeholder"]
-    let indicator:[UIImage]=[#imageLiteral(resourceName: "bar wpm"),#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure")]
-    let cellTitle:[String] = ["Pacing","Filler Words","Intonation"]
+    var comments:[String]=["SomePlaceholder","SomePlaceholder"]
+    var result:[String]=["Placeholder","Placeholder"]
+    let indicator:[UIImage]=[#imageLiteral(resourceName: "bar wpm"),#imageLiteral(resourceName: "Measure")]
+    let cellTitle:[String] = ["Pacing","Filler Words"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +49,8 @@ class ResultFromRecordingViewController: UIViewController {
         if(wpm.isNaN){
             wpm = 0
         }
+        var saveResults = CoreDataHelper(appDelegate: UIApplication.shared.delegate as? AppDelegate)
+        saveResults.insertData(data: RecordingStruct(averageWPM: wpm, recordingName: audioFileNumber, fillerWords: fillerWordList))
         self.result[0] = String(format: "%.2f WPM",wpm )
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
@@ -192,42 +194,5 @@ extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectio
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         self.resultPageController.currentPage = indexPath.row
-    }
-}
-
-class TriangleView : UIView {
-    
-    init(wpm:Double) {
-        let max:Double = 340
-        let width:Double = 15
-        let min:Double = 13+(width/2)
-        var val:Double = 0
-        if wpm <= 0 || wpm.isNaN{
-            val = min
-        }else if wpm >= 270{
-            val = max+min
-        }else{
-            val = (((wpm/270)*max)+min)
-        }
-        let frame = CGRect(x: val-(width/2), y: 215, width: width , height: 15)
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func draw(_ rect: CGRect) {
-        
-        guard let context = UIGraphicsGetCurrentContext() else { return }
-        
-        context.beginPath()
-        context.move(to: CGPoint(x: rect.minX, y: rect.minY))
-        context.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-        context.addLine(to: CGPoint(x: (rect.maxX / 2.0), y: rect.maxY))
-        context.closePath()
-        
-        context.setFillColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        context.fillPath()
     }
 }
