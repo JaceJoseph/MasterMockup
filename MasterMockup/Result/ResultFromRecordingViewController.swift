@@ -40,7 +40,7 @@ class ResultFromRecordingViewController: UIViewController {
         super.viewDidLoad()
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
-        print("fast avg wpm:",getFastAvgWpm())
+        //print("fast avg wpm:",getFastAvgWpm())
         print(numOfRecordsTemporary)
         
         bootingRecorderFile = false
@@ -55,10 +55,10 @@ class ResultFromRecordingViewController: UIViewController {
     
     @IBAction func playbackButtonIsTapped(_ sender: Any) {
         if bootingRecorderFile == false {
-            let audioFilename = getDocumentsDirectory().appendingPathComponent("recording\(numOfRecordsTemporary).m4a")
+            let audioFilename = audioFileName
             do{
                 configureAudioSessionToSpeaker()
-                try audioPlayer = AVAudioPlayer(contentsOf: audioFilename)
+                try audioPlayer = AVAudioPlayer(contentsOf: audioFilename!)
                 audioPlayer.volume = 1
                 
             }catch{}
@@ -95,21 +95,24 @@ class ResultFromRecordingViewController: UIViewController {
     
     // Configure Iphone's Speaker (Bottom Speaker)
     func configureAudioSessionToSpeaker(){
-        do {
-            try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
-            try audioSession.setActive(true)
-            print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",audioSession.currentRoute.outputs)
-        } catch let error as NSError {
-            print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
-    // Configure Iphone's Speaker (Bottom Speaker)
-    func configureAudioSessionToSpeaker(){
-        do {
-            try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
-            try audioSession.setActive(true)
-            print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",audioSession.currentRoute.outputs)
-        } catch let error as NSError {
-            print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
-    
+    do {
+        try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+        try audioSession.setActive(true)
+        print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",audioSession.currentRoute.outputs)
+    } catch let error as NSError {
+        print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
+        // Configure Iphone's Speaker (Bottom Speaker)
+        func configureAudioSessionToSpeaker(){
+            do {
+                try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+                try audioSession.setActive(true)
+                print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",audioSession.currentRoute.outputs)
+            } catch let error as NSError {
+                print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
+                }
+            }
+        }
+    }
 }
 extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
