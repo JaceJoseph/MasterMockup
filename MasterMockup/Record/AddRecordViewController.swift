@@ -29,7 +29,7 @@ class AddRecordViewController: UIViewController {
     
     // list filler word
     var detectedFillerWord: [String:Int] = [:]
-    var listedFillerWord = ["so", "like", "I mean", "you know", "ok", "so basicly", "OK", "literaly"]
+    var listedFillerWord = ["so", "like", "i mean", "you know", "so basically", "ok", "literally", "hmm"]
     
     //untuk live transcribe
     let audioEngine = AVAudioEngine()
@@ -199,14 +199,16 @@ class AddRecordViewController: UIViewController {
                     
                     // detecting filler word
                     let word = bestString.components(separatedBy: " ")
-                    let newWord = word.last!
+                    var newWord = word.last!
                     var lastWord = ""
                     if numOfWords == 1 {
                         lastWord = word[0]
                     }else{
                         lastWord = word[numOfWords - 2]
                     }
-                    let comparedWord = "\(lastWord) \(newWord)"
+                    var comparedWord = "\(lastWord) \(newWord)"
+                    newWord = newWord.lowercased()
+                    comparedWord = comparedWord.lowercased()
                     for word in self.listedFillerWord {
                         if newWord == word {
                             if self.detectedFillerWord["\(newWord)"] == nil{
@@ -224,11 +226,16 @@ class AddRecordViewController: UIViewController {
                         }
                     }
                     print("filler Word List: \(self.detectedFillerWord)")
+                    print("--------------------------------")
                 }else{
                     print(error)
                 }
             })
         }
+    }
+    
+    func getFillerWord(word: String, totalWord: Int){
+        
     }
     
     func stopTranscribing(){
@@ -286,6 +293,7 @@ class AddRecordViewController: UIViewController {
             result.audioFileName = self.audioFileName
             result.listOfLiveWPMs = self.listOfLiveWPMs
             result.numOfRecordsTemporary = self.numberOfRecords
+            result.fillerWordList = self.detectedFillerWord
         }
     }
     

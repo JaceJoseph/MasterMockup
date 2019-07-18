@@ -23,10 +23,14 @@ class ResultFromRecordingViewController: UIViewController {
     let audioEngine = AVAudioEngine()
     // Pencatatan Number of Records (DATA INI TIDAK DITAMPILKAN DI SINI, PERANTARA KE HALAMAN ALL RECORDS)
     var numOfRecordsTemporary: Int = 0
+    // list filler word
+    var fillerWordList = [String: Int]()
+    var fillerWordKey = [String]()
+    var fillerWordValue = [Int]()
     
     let image:UIImage = #imageLiteral(resourceName: "SiKaset")
-    let comments:[String]=["SomePlaceholder","SomePlaceholder","SomePlaceholder"]
-    let result:[String]=["Placeholder","Placeholder","Placeholder"]
+    var comments:[String]=["SomePlaceholder","SomePlaceholder","SomePlaceholder"]
+    var result:[String]=["Placeholder","Placeholder","Placeholder"]
     let indicator:[UIImage]=[#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure")]
     let cellTitle:[String] = ["Pacing","Filler Words","Intonation"]
     
@@ -34,6 +38,7 @@ class ResultFromRecordingViewController: UIViewController {
         super.viewDidLoad()
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
+        result[1] = "\(getFillerWordSum()) filler word found"
         print("fast avg wpm:",getFastAvgWpm())
     }
     
@@ -54,6 +59,37 @@ class ResultFromRecordingViewController: UIViewController {
         }
         return Double(totalWPM/Double(wpmCount))
     }
+    
+    // sum dari fillerwordlist
+    func getFillerWordSum() -> Int {
+        var sumFillerWord = 0
+        for word in fillerWordList {
+            sumFillerWord += word.value
+            fillerWordValue.append(word.value)
+            fillerWordKey.append(word.key)
+        }
+        setFillerWordComment()
+        return sumFillerWord
+    }
+    
+    // set komentar untuk filler word
+    func setFillerWordComment() {
+        var dumy = ""
+        var finalComment = ""
+        if fillerWordKey.count == 0 {
+            comments[1] = "Great ! there is no filler word we hear from your presentation"
+        }else{
+            for word in fillerWordList {
+                dumy = "\(word.key) : \(word.value)"
+                if finalComment == ""{
+                    finalComment = dumy
+                }else{
+                    finalComment = "\(finalComment) \n \(dumy)"
+                }
+            }
+            comments[1] = finalComment
+        }
+    }
 
 }
 extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectionViewDataSource{
@@ -64,8 +100,11 @@ extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pacingCell", for: indexPath) as! PacingCollectionViewCell
         let selector = indexPath.row
-        
         cell.setCell(title: cellTitle[selector], image: image, comment: comments[selector], result: result[selector], indicator: indicator[selector])
+        
+        if selector == 1 {
+            
+        }
         
         return cell
     }
