@@ -40,7 +40,7 @@ class ResultFromRecordingViewController: UIViewController {
     
     var comments:[String]=["SomePlaceholder","SomePlaceholder","SomePlaceholder"]
     var result:[String]=["Placeholder","Placeholder","Placeholder"]
-    let indicator:[UIImage]=[#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure")]
+    let indicator:[UIImage]=[#imageLiteral(resourceName: "bar wpm"),#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure")]
     let cellTitle:[String] = ["Pacing","Filler Words","Intonation"]
     
     override func viewDidLoad() {

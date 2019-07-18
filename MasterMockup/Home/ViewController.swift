@@ -11,21 +11,16 @@ import UIKit
 class ViewController: UIViewController {
     
     let dummyArray:[UIImage] = [#imageLiteral(resourceName: "cassette"),#imageLiteral(resourceName: "cassette copy 3"),#imageLiteral(resourceName: "cassette copy"),#imageLiteral(resourceName: "cassette copy 2"),#imageLiteral(resourceName: "cassette copy 4"),#imageLiteral(resourceName: "cassettewhite")]
-    let dummyFavTitle:[String]=["Recording 1","Recording 2"]
-    let dummyFavSubtitle:[String]=["Subtitle 1","Subtitle2"]
+    let dummyFavTitle:[String]=["Recording 1","Recording 2","Recording3"]
+    let dummyFavSubtitle:[String]=["Subtitle 1","Subtitle2","Subtitle3"]
     
     // Variable Penampung untuk record dari ResultTableViewController
     var recordTitle: [String] = []
 
-    @IBOutlet weak var recordsPageDot: UIPageControl!
-    @IBOutlet weak var recordsCollectionView: UICollectionView!
+    
     @IBOutlet weak var recordsTableView: UITableView!
     
     override func viewDidLoad() {
-        recordsPageDot.numberOfPages = dummyArray.count
-        recordsCollectionView.delegate = self
-        recordsCollectionView.dataSource = self
-        
         recordsTableView.delegate = self
         recordsTableView.dataSource = self
         super.viewDidLoad()
@@ -38,38 +33,6 @@ class ViewController: UIViewController {
     }
 
 }
-
-extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if dummyArray.isEmpty == true{
-            return 1
-        }else{
-            return dummyArray.count
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let row:UIImage
-        
-        if dummyArray.isEmpty == false{
-            row = dummyArray[indexPath.row]
-        }else{
-            row = #imageLiteral(resourceName: "cassette")
-        }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recordsCell", for: indexPath) as! RecordsCollectionViewCell
-        cell.setUI(image: row)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.recordsPageDot.currentPage = indexPath.row
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "resultSegue", sender: self)
-    }
-}
-
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
@@ -113,7 +76,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         return 70
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "resultSegue", sender: self)
     }
     
