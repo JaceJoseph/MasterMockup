@@ -15,6 +15,7 @@ class ResultFromRecordingViewController: UIViewController {
     @IBOutlet weak var resultCollectionView: UICollectionView!
     @IBOutlet weak var resultPageController: UIPageControl!
     
+    @IBOutlet weak var playbackButton: UIButton!
     
     //url lokasi recording yang baru direcord
     var audioFileName: URL!
@@ -25,6 +26,11 @@ class ResultFromRecordingViewController: UIViewController {
     let audioEngine = AVAudioEngine()
     // Pencatatan Number of Records (DATA INI TIDAK DITAMPILKAN DI SINI, PERANTARA KE HALAMAN ALL RECORDS)
     var numOfRecordsTemporary: Int = 0
+    var isPlaying: Bool = false
+    var bootingRecorderFile: Bool = false
+    
+    var audioPlayer: AVAudioPlayer!
+    let audioSession = AVAudioSession.sharedInstance()
     
     var image:UIImage = #imageLiteral(resourceName: "SiKaset")
     var comments:[String]=["SomePlaceholder","SomePlaceholder","SomePlaceholder"]
@@ -41,6 +47,49 @@ class ResultFromRecordingViewController: UIViewController {
         self.result[0] = String(format: "%.2f WPM",wpm )
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
+        //print("fast avg wpm:",getFastAvgWpm())
+        print(numOfRecordsTemporary)
+        
+        bootingRecorderFile = false
+        
+        // SET USER DEFAULT APABILA INGIN DI SAVE (SAAT INI PASTI DI SAVE)
+        let defaults = UserDefaults.standard
+        var nameRecordingArray = defaults.object(forKey:"nameArray") as? [String] ?? [String]()
+        nameRecordingArray.append("Recording\(numOfRecordsTemporary)")
+        defaults.set(nameRecordingArray, forKey: "nameArray")
+        
+    }
+    
+    @IBAction func playbackButtonIsTapped(_ sender: Any) {
+        if bootingRecorderFile == false {
+            let audioFilename = audioFileName
+            do{
+                configureAudioSessionToSpeaker()
+                try audioPlayer = AVAudioPlayer(contentsOf: audioFilename!)
+                audioPlayer.volume = 1
+                
+            }catch{}
+        }
+        else {
+            if isPlaying == false {
+                // GANTI GAMBAR BUTTON DI BAGIAN INI
+                let image = UIImage(named: "PauseResult") as UIImage?
+                playbackButton.setImage(image, for: .normal)
+                audioPlayer.play()
+                isPlaying = true
+            }
+            else {
+                // GANTI GAMBAR BUTTON DI BAGIAN INI
+                let image = UIImage(named: "PlayResult") as UIImage?
+                playbackButton.setImage(image, for: .normal)
+                audioPlayer.pause()
+                isPlaying = false
+            }
+        }
+        
+        bootingRecorderFile = true
+    }
+    
         //MARK: TEST DI SINI
         let triangle = TriangleView(wpm: getFastAvgWpm())
         triangle.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 0)
@@ -53,18 +102,29 @@ class ResultFromRecordingViewController: UIViewController {
         
         // Function to append to AllRecordViewController
         segueToAllRecord?.addRecord(name: String(numOfRecordsTemporary))
+        print("Record added with \(numOfRecordsTemporary)")
     }
     
-    //sum dari semua total wpm dibagi jumblah wpm utk average
-    func getFastAvgWpm()->Double{
-        var totalWPM:Double = 0
-        let wpmCount:Int = listOfLiveWPMs.count
-        for wpmInfo in listOfLiveWPMs{
-            totalWPM += wpmInfo.wpmValue
+    // Configure Iphone's Speaker (Bottom Speaker)
+    func configureAudioSessionToSpeaker(){
+    do {
+        try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+        try audioSession.setActive(true)
+        print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",audioSession.currentRoute.outputs)
+    } catch let error as NSError {
+        print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
+        // Configure Iphone's Speaker (Bottom Speaker)
+        func configureAudioSessionToSpeaker(){
+            do {
+                try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+                try audioSession.setActive(true)
+                print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",audioSession.currentRoute.outputs)
+            } catch let error as NSError {
+                print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
+                }
+            }
         }
-        return Double(totalWPM/Double(wpmCount))
     }
-
 }
 extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     

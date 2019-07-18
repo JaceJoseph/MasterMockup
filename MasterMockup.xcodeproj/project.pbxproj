@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C7F934322DCB05300FF540C /* LiveWPMInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7F934222DCB05300FF540C /* LiveWPMInfo.swift */; };
+		58125EA222DF3AA300E899FC /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58125EA122DF3AA300E899FC /* Stopwatch.swift */; };
 		661EE09E22DBFC240043661F /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661EE09D22DBFC240043661F /* ResultTableViewController.swift */; };
 		700F1FB222DEC5BB00B72A44 /* ResultFromRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700F1FB122DEC5BB00B72A44 /* ResultFromRecordingViewController.swift */; };
 		70B5E21E22DC53CD00698753 /* OpenRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5E21D22DC53CD00698753 /* OpenRecordingViewController.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		4C7F934222DCB05300FF540C /* LiveWPMInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveWPMInfo.swift; sourceTree = "<group>"; };
+		58125EA122DF3AA300E899FC /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
 		661EE09D22DBFC240043661F /* ResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
 		700F1FB122DEC5BB00B72A44 /* ResultFromRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultFromRecordingViewController.swift; sourceTree = "<group>"; };
 		70B5E21D22DC53CD00698753 /* OpenRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenRecordingViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				70EBBD7522D81F620037D10A /* MasterMockup.xcdatamodeld */,
 				70B5E22722DC5FA000698753 /* Result1CollectionViewCell.swift */,
 				661EE09D22DBFC240043661F /* ResultTableViewController.swift */,
+				58125EA122DF3AA300E899FC /* Stopwatch.swift */,
 			);
 			path = MasterMockup;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				700F1FB222DEC5BB00B72A44 /* ResultFromRecordingViewController.swift in Sources */,
 				70EBBD6F22D81F620037D10A /* AppDelegate.swift in Sources */,
 				70EBBD8622D828AA0037D10A /* AddRecordViewController.swift in Sources */,
+				58125EA222DF3AA300E899FC /* Stopwatch.swift in Sources */,
 				661EE09E22DBFC240043661F /* ResultTableViewController.swift in Sources */,
 				4C7F934322DCB05300FF540C /* LiveWPMInfo.swift in Sources */,
 				70B5E22622DC5D1100698753 /* PacingCollectionViewCell.swift in Sources */,
