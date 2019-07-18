@@ -38,7 +38,6 @@ class ResultFromRecordingViewController: UIViewController {
     var audioPlayer: AVAudioPlayer!
     let audioSession = AVAudioSession.sharedInstance()
     
-    var image:UIImage = #imageLiteral(resourceName: "SiKaset")
     var comments:[String]=["SomePlaceholder","SomePlaceholder","SomePlaceholder"]
     var result:[String]=["Placeholder","Placeholder","Placeholder"]
     let indicator:[UIImage]=[#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure"),#imageLiteral(resourceName: "Measure")]
