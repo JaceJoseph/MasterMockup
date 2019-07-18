@@ -9,6 +9,6 @@ import Foundation
 
 //utk simpan historical data live wpm
 struct liveWPMInfo {
-    var wpmValue : Int
+    var wpmValue : Double
     var timeTaken : DispatchTime?
 }

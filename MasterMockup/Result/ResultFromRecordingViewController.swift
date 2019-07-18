@@ -18,8 +18,10 @@ class ResultFromRecordingViewController: UIViewController {
     @IBOutlet weak var playbackButton: UIButton!
     
     var audioFileName: URL!
+    //list of struct berisi semua live wpm dan time nya
     var listOfLiveWPMs:[liveWPMInfo]=[liveWPMInfo]()
-    
+    //audio engine utk recognition wpm akurat
+    let audioEngine = AVAudioEngine()
     // Pencatatan Number of Records (DATA INI TIDAK DITAMPILKAN DI SINI, PERANTARA KE HALAMAN ALL RECORDS)
     var numOfRecordsTemporary: Int = 0
     var isPlaying: Bool = false
@@ -38,6 +40,7 @@ class ResultFromRecordingViewController: UIViewController {
         super.viewDidLoad()
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
+        print("fast avg wpm:",getFastAvgWpm())
         print(numOfRecordsTemporary)
         
         bootingRecorderFile = false
@@ -78,14 +81,7 @@ class ResultFromRecordingViewController: UIViewController {
         }
         
         bootingRecorderFile = true
-        
-        
-        
-        
-        
-        
     }
-    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -105,16 +101,15 @@ class ResultFromRecordingViewController: UIViewController {
             print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",audioSession.currentRoute.outputs)
         } catch let error as NSError {
             print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
-        }
-    }
+    // Configure Iphone's Speaker (Bottom Speaker)
+    func configureAudioSessionToSpeaker(){
+        do {
+            try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+            try audioSession.setActive(true)
+            print("Successfully configured audio session (SPEAKER-Bottom).", "\nCurrent audio route: ",audioSession.currentRoute.outputs)
+        } catch let error as NSError {
+            print("#configureAudioSessionToSpeaker Error \(error.localizedDescription)")
     
-    // Function that gets path to the library
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    
-
 }
 extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
