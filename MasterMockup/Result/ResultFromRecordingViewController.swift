@@ -51,7 +51,10 @@ class ResultFromRecordingViewController: UIViewController {
         print(numOfRecordsTemporary)
         
         bootingRecorderFile = false
-        
+        //MARK: TEST DI SINI
+        let triangle = TriangleView(wpm: getFastAvgWpm())
+        triangle.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 0)
+        resultCollectionView.addSubview(triangle)
         // SET USER DEFAULT APABILA INGIN DI SAVE (SAAT INI PASTI DI SAVE)
         let defaults = UserDefaults.standard
         var nameRecordingArray = defaults.object(forKey:"nameArray") as? [String] ?? [String]()
@@ -90,12 +93,6 @@ class ResultFromRecordingViewController: UIViewController {
         bootingRecorderFile = true
     }
     
-        //MARK: TEST DI SINI
-        let triangle = TriangleView(wpm: getFastAvgWpm())
-        triangle.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 0)
-        resultCollectionView.addSubview(triangle)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let segueToAllRecord = segue.destination as? AllRecordViewController
@@ -124,6 +121,15 @@ class ResultFromRecordingViewController: UIViewController {
                 }
             }
         }
+    }
+    //sum dari semua total wpm dibagi jumblah wpm utk average
+    func getFastAvgWpm()->Double{
+        var totalWPM:Double = 0
+        let wpmCount:Int = listOfLiveWPMs.count
+        for wpmInfo in listOfLiveWPMs{
+            totalWPM += wpmInfo.wpmValue
+        }
+        return Double(totalWPM/Double(wpmCount))
     }
 }
 extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectionViewDataSource{
