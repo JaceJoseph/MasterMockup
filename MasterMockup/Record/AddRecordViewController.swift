@@ -21,7 +21,7 @@ class AddRecordViewController: UIViewController {
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var audioFileName: URL!
-    
+    var audioFileNumber: String!
     // Add on Tommy
     var numberOfRecords: Int = 0
     var isRecording: Bool = false
@@ -137,6 +137,7 @@ class AddRecordViewController: UIViewController {
         
         //kasih nama ke recording filenya
         audioFileName = self.getDocumentsDirectory().appendingPathComponent("recording\(numberOfRecords).m4a")
+        audioFileNumber = "recording\(numberOfRecords)"
         
         //setup setting recording
         let settings = [
@@ -285,6 +286,7 @@ class AddRecordViewController: UIViewController {
             guard let result = segue.destination as? ResultFromRecordingViewController else {return}
             result.audioFileName = self.audioFileName
             result.listOfLiveWPMs = self.listOfLiveWPMs
+            result.audioFileNumber = self.audioFileNumber
             result.numOfRecordsTemporary = self.numberOfRecords
         }
     }
