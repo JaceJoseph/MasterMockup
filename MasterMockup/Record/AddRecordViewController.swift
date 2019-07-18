@@ -11,17 +11,22 @@ import Speech
 
 class AddRecordViewController: UIViewController {
     
+    let watch = Stopwatch()
+    var timer:Timer?
+    
     @IBOutlet weak var recordButton: UIButton!
     
     @IBOutlet weak var pauseRecordButton: UIButton!
     @IBOutlet weak var resumeRecordButton: UIButton!
+    
+    @IBOutlet weak var elapsedTimeLabel: UILabel!
     
     //untuk record m4a
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var audioFileName: URL!
-    
+    var audioFileNumber: String!
     // Add on Tommy
     var numberOfRecords: Int = 0
     var isRecording: Bool = false
@@ -43,6 +48,18 @@ class AddRecordViewController: UIViewController {
     var listOfLiveWPMs:[liveWPMInfo]=[liveWPMInfo]()
     //var transcribe:Bool = true
     
+    @objc func updateElapsedTimeLabel(timer: Timer) {
+        if watch.isRunning {
+            let minutes = Int(watch.elapsedTime/60)
+            let seconds = Int(watch.elapsedTime.truncatingRemainder(dividingBy: 60))
+            let tenOfSeconds = Int((watch.elapsedTime * 10).truncatingRemainder(dividingBy: 10))
+            elapsedTimeLabel.text = String(format: "%02d:%02d.%d", minutes, seconds, tenOfSeconds)
+        }
+        else {
+            timer.invalidate()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,20 +80,24 @@ class AddRecordViewController: UIViewController {
 
     @IBAction func recordButtonIsTapped(_ sender: Any) {
         
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateElapsedTimeLabel(timer:)), userInfo: nil, repeats: true)
+        
         pauseRecordButton.isEnabled = true
         resumeRecordButton.isEnabled = false
         
-        // TODO: GANTI GAMBAR BUTTON DI BAGIAN INI
+        // GANTI GAMBAR BUTTON DI BAGIAN INI
         let image = UIImage(named: "Stop Button") as UIImage?
         recordButton.setImage(image, for: .normal)
         recordButton.isEnabled = true
         
         if isRecording == false {
             startRecording()
+            watch.start()
             print("AWAL RECORD")
         }
         else {
             stopTranscribing()
+            watch.stop()
             saveRecording()
             print("SELESAI RECORD")
             
@@ -92,6 +113,9 @@ class AddRecordViewController: UIViewController {
         pauseRecordButton.isEnabled = false
         resumeRecordButton.isEnabled = true
         
+        watch.pause()
+        timer?.invalidate()
+        
         pauseRecording()
         isRecording = true
     }
@@ -101,6 +125,11 @@ class AddRecordViewController: UIViewController {
         print("resumed")
         pauseRecordButton.isEnabled = true
         resumeRecordButton.isEnabled = false
+        watch.resume()
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateElapsedTimeLabel(timer:)), userInfo: nil, repeats: true)
+        //watch.start()
+        
         print("try enabling live transcribe")
         liveTranscribe()
         print("success enabling live transcribe")
@@ -137,6 +166,7 @@ class AddRecordViewController: UIViewController {
         
         //kasih nama ke recording filenya
         audioFileName = self.getDocumentsDirectory().appendingPathComponent("recording\(numberOfRecords).m4a")
+        audioFileNumber = "recording\(numberOfRecords)"
         
         //setup setting recording
         let settings = [
@@ -292,6 +322,7 @@ class AddRecordViewController: UIViewController {
             guard let result = segue.destination as? ResultFromRecordingViewController else {return}
             result.audioFileName = self.audioFileName
             result.listOfLiveWPMs = self.listOfLiveWPMs
+            result.audioFileNumber = self.audioFileNumber
             result.numOfRecordsTemporary = self.numberOfRecords
             result.fillerWordList = self.detectedFillerWord
         }
