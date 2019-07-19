@@ -12,6 +12,7 @@ class AllRecordViewController: UIViewController {
 
     var numberOfAllRecords: Int = 0
     var listOfRecording = [String]()
+    var timeLabelOfRecording = [String]()
     
     @IBOutlet weak var allRecordTableView: UITableView!
     let dummyTitle = ["Title1","Title2"]
@@ -26,10 +27,12 @@ class AllRecordViewController: UIViewController {
         // USER DEFAULT (SUDAH DI SAVE DARI ResultFromRecordViewController
         let defaults = UserDefaults.standard
         listOfRecording = defaults.object(forKey:"nameArray") as? [String] ?? [String]()
+        timeLabelOfRecording = defaults.object(forKey: "timeArray") as? [String] ?? [String]()
         
         
         print("ALL RECORD LOADED")
         
+        // TODO: DEBUGGING SAJA, NANTI DI DELETE BAGIAN INI
         for _ in listOfRecording {
             print(listOfRecording)
         }
@@ -40,6 +43,12 @@ class AllRecordViewController: UIViewController {
     // Fungsi untuk menambah record yang akan di gunakan di ResultFromRecordingViewController
     func addRecord(name: String) {
         listOfRecording.append(name)
+        
+        print("Appended !!!!!!")
+    }
+    
+    func addTimeRecord(time: String) {
+        timeLabelOfRecording.append(time)
     }
 
 }
@@ -58,7 +67,10 @@ extension AllRecordViewController:UITableViewDataSource,UITableViewDelegate{
         let listRecordingSubName = cell?.contentView.viewWithTag(71) as! UILabel
         
         listRecordingName.text = listOfRecording[indexPath.row]
-        listRecordingSubName.text = listOfRecording[indexPath.row]
+        print(indexPath.row)
+        print(listOfRecording)
+        print(timeLabelOfRecording)
+        listRecordingSubName.text = timeLabelOfRecording[indexPath.row]
         
         return cell!
     }

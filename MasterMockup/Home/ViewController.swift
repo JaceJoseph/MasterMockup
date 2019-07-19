@@ -80,7 +80,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         performSegue(withIdentifier: "resultSegue", sender: self)
     }
     
-    // Function to append from WinViewController (See WinViewCOntroller.swift)
+    // Function to append
     func add(name: String) {
         recordTitle.append(name)
     }
