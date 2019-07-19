@@ -786,7 +786,7 @@
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="progressTintColor" red="0.19281029699999999" green="0.36457973719999998" blue="0.4000052214" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </progressView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="SuR-xh-UaL">
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="SuR-xh-UaL">
                                 <rect key="frame" x="182" y="698" width="50" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="5l9-Bj-hg3"/>
