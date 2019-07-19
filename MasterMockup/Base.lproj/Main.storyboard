@@ -141,6 +141,8 @@
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="pQQ-fR-1BT">
                                 <rect key="frame" x="0.0" y="140" width="414" height="56"/>
+                                <color key="backgroundColor" red="0.27521246671676636" green="0.28875339031219482" blue="0.3725590705871582" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="barTintColor" red="0.27521246671676636" green="0.28875339031219482" blue="0.3725590705871582" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="Sjr-Q1-j1u" id="ZEJ-jB-RrO"/>
@@ -200,7 +202,9 @@
                         <viewLayoutGuide key="safeArea" id="283-3e-rYt"/>
                     </view>
                     <navigationItem key="navigationItem" title="All Recordings" id="eXi-Wt-EXu">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="action" id="ApL-ar-smP"/>
+                        <barButtonItem key="rightBarButtonItem" title="Sort" style="plain" id="ApL-ar-smP">
+                            <color key="tintColor" red="0.27521246669999999" green="0.28875339030000002" blue="0.37255907059999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="allRecordTableView" destination="2V2-i7-6sl" id="sRt-2d-43h"/>
@@ -1018,6 +1022,6 @@
         <image name="lines volume" width="411" height="80"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4ba-lQ-gOs"/>
+        <segue reference="v6Y-UL-jD2"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -29,6 +29,7 @@ class AddRecordViewController: UIViewController {
     var audioFileNumber: String!
     // Add on Tommy
     var numberOfRecords: Int = 0
+    var timeLabelRecord: String = ""
     var isRecording: Bool = false
     // Add on Tommy
     
@@ -69,6 +70,9 @@ class AddRecordViewController: UIViewController {
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int {
             numberOfRecords = number
         }
+        if let timeLabel: String = UserDefaults.standard.object(forKey: "myTime") as? String {
+            timeLabelRecord = timeLabel
+        }
         
         // Resume dan Pause button tidak dapat di tekan apabila belum mulai recording
         resumeRecordButton.isEnabled = false
@@ -101,6 +105,8 @@ class AddRecordViewController: UIViewController {
             watch.stop()
             saveRecording()
             print("SELESAI RECORD")
+            
+            timeLabelRecord = elapsedTimeLabel.text ?? "00:00"
             
             performSegue(withIdentifier: "toResult", sender: self)
         }
@@ -300,6 +306,7 @@ class AddRecordViewController: UIViewController {
         
         // Menambah user default untuk number of recoring
         UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
+        UserDefaults.standard.set(timeLabelRecord, forKey: "myTime")
     }
     
 //addon untuk wpm, temporary disini utk testing
@@ -323,6 +330,7 @@ class AddRecordViewController: UIViewController {
             stopTranscribing()
             guard let result = segue.destination as? ResultFromRecordingViewController else {return}
             result.audioFileName = self.audioFileName
+            result.timeLabelRecordingTemporary = self.timeLabelRecord
             result.listOfLiveWPMs = self.listOfLiveWPMs
             result.audioFileNumber = self.audioFileNumber
             result.numOfRecordsTemporary = self.numberOfRecords

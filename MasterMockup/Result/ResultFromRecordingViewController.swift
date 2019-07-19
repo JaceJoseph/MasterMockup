@@ -20,12 +20,17 @@ class ResultFromRecordingViewController: UIViewController {
     //url lokasi recording yang baru direcord
     var audioFileName: URL!
     var audioFileNumber: String!
+    
     //list of struct berisi semua live wpm dan time nya
     var listOfLiveWPMs:[liveWPMInfo]=[liveWPMInfo]()
+    
     //audio engine utk recognition wpm akurat
     let audioEngine = AVAudioEngine()
+    
     // Pencatatan Number of Records (DATA INI TIDAK DITAMPILKAN DI SINI, PERANTARA KE HALAMAN ALL RECORDS)
     var numOfRecordsTemporary: Int = 0
+    var timeLabelRecordingTemporary: String = ""
+    
     // list filler word
     var fillerWordList = [String: Int]()
     var fillerWordKey = [String]()
@@ -60,19 +65,28 @@ class ResultFromRecordingViewController: UIViewController {
         resultCollectionView.dataSource = self
         result[1] = "\(getFillerWordSum()) filler word found"
         print("fast avg wpm:",getFastAvgWpm())
+        
         //print("fast avg wpm:",getFastAvgWpm())
         print(numOfRecordsTemporary)
+        print(timeLabelRecordingTemporary)
         
         bootingRecorderFile = false
+        
         //MARK: TEST DI SINI
         let triangle = TriangleView(wpm: getFastAvgWpm())
         triangle.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 0)
         resultCollectionView.addSubview(triangle)
+        
         // SET USER DEFAULT APABILA INGIN DI SAVE (SAAT INI PASTI DI SAVE)
         let defaults = UserDefaults.standard
         var nameRecordingArray = defaults.object(forKey:"nameArray") as? [String] ?? [String]()
+        var timeRecordingArray = defaults.object(forKey: "timeArray") as? [String] ?? [String]()
+        
         nameRecordingArray.append("Recording\(numOfRecordsTemporary)")
+        timeRecordingArray.append(timeLabelRecordingTemporary)
+        
         defaults.set(nameRecordingArray, forKey: "nameArray")
+        defaults.set(timeRecordingArray, forKey: "timeArray")
         
     }
     
@@ -112,7 +126,12 @@ class ResultFromRecordingViewController: UIViewController {
         
         // Function to append to AllRecordViewController
         segueToAllRecord?.addRecord(name: String(numOfRecordsTemporary))
+        segueToAllRecord?.addTimeRecord(time: timeLabelRecordingTemporary)
+        segueToAllRecord?.allRecordTableView.reloadData()
+        
+        print("=====================================")
         print("Record added with \(numOfRecordsTemporary)")
+        print("Time Label : \(timeLabelRecordingTemporary)")
     }
     
     // Configure Iphone's Speaker (Bottom Speaker)
