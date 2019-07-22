@@ -77,7 +77,16 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "resultSegue", sender: self)
+        //performSegue(withIdentifier: "resultSegue", sender: self)
+        
+        // create the alert
+        let alert = UIAlertController(title: "Announcement", message: "This feature is still under development", preferredStyle: UIAlertController.Style.alert)
+        
+        // Add action
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        
+        // Show the alert
+        self.present(alert,animated: true, completion: nil)
     }
     
     // Function to append

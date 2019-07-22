@@ -270,10 +270,6 @@ class AddRecordViewController: UIViewController {
         }
     }
     
-    func getFillerWord(word: String, totalWord: Int){
-        
-    }
-    
     func stopTranscribing(){
         print("stop transcribing")
         self.audioEngine.stop()

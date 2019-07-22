@@ -14,6 +14,7 @@
 		4CC09D9D22E0705800888BF3 /* PacingResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC09D9C22E0705800888BF3 /* PacingResultCollectionViewCell.swift */; };
 		58125EA222DF3AA300E899FC /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58125EA122DF3AA300E899FC /* Stopwatch.swift */; };
 		661EE09E22DBFC240043661F /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661EE09D22DBFC240043661F /* ResultTableViewController.swift */; };
+		66B1365822E54FC7008874BE /* New Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 66B1365722E54FC7008874BE /* New Logo.png */; };
 		700F1FB222DEC5BB00B72A44 /* ResultFromRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700F1FB122DEC5BB00B72A44 /* ResultFromRecordingViewController.swift */; };
 		70B5E21E22DC53CD00698753 /* OpenRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5E21D22DC53CD00698753 /* OpenRecordingViewController.swift */; };
 		70B5E22622DC5D1100698753 /* PacingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B5E22522DC5D1100698753 /* PacingCollectionViewCell.swift */; };
@@ -38,6 +39,7 @@
 		4CC09D9C22E0705800888BF3 /* PacingResultCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacingResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		58125EA122DF3AA300E899FC /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
 		661EE09D22DBFC240043661F /* ResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
+		66B1365722E54FC7008874BE /* New Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "New Logo.png"; sourceTree = "<group>"; };
 		700F1FB122DEC5BB00B72A44 /* ResultFromRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultFromRecordingViewController.swift; sourceTree = "<group>"; };
 		70B5E21D22DC53CD00698753 /* OpenRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenRecordingViewController.swift; sourceTree = "<group>"; };
 		70B5E22522DC5D1100698753 /* PacingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 		70EBBD6222D81F620037D10A = {
 			isa = PBXGroup;
 			children = (
+				66B1365722E54FC7008874BE /* New Logo.png */,
 				70EBBD6D22D81F620037D10A /* MasterMockup */,
 				70EBBD6C22D81F620037D10A /* Products */,
 			);
@@ -204,6 +207,7 @@
 			files = (
 				70EBBD7C22D81F650037D10A /* LaunchScreen.storyboard in Resources */,
 				70EBBD7922D81F650037D10A /* Assets.xcassets in Resources */,
+				66B1365822E54FC7008874BE /* New Logo.png in Resources */,
 				70EBBD7422D81F620037D10A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,7 +383,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DJ8K35D2L8;
+				DEVELOPMENT_TEAM = D77W59ZN98;
 				INFOPLIST_FILE = MasterMockup/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -397,7 +401,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DJ8K35D2L8;
+				DEVELOPMENT_TEAM = D77W59ZN98;
 				INFOPLIST_FILE = MasterMockup/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

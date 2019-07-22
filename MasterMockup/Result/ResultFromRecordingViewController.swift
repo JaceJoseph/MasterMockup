@@ -14,8 +14,11 @@ class ResultFromRecordingViewController: UIViewController {
     @IBOutlet weak var cassetteImage: UIImageView!
     @IBOutlet weak var resultCollectionView: UICollectionView!
     @IBOutlet weak var resultPageController: UIPageControl!
+    @IBOutlet weak var durationProgressBar: UIProgressView!
     
     @IBOutlet weak var playbackButton: UIButton!
+    @IBOutlet weak var rightCountLabel: UILabel!
+    @IBOutlet weak var leftCountLabel: UILabel!
     
     //url lokasi recording yang baru direcord
     var audioFileName: URL!
@@ -42,11 +45,16 @@ class ResultFromRecordingViewController: UIViewController {
     
     var audioPlayer: AVAudioPlayer!
     let audioSession = AVAudioSession.sharedInstance()
+    var rightCount: Int = 0
+    var leftCount: Int = 0
+    var end: Bool = false
     
     var comments:[String]=["SomePlaceholder","SomePlaceholder"]
     var result:[String]=["Placeholder","Placeholder"]
     let indicator:[UIImage]=[#imageLiteral(resourceName: "bar wpm"),#imageLiteral(resourceName: "Measure")]
     let cellTitle:[String] = ["Pacing","Filler Words"]
+    
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +69,7 @@ class ResultFromRecordingViewController: UIViewController {
         let saveResults = CoreDataHelper(appDelegate: appDelegate)
         saveResults.insertData(data: RecordingStruct(averageWPM: wpm, recordingName: audioFileNumber, fillerWords: fillerWordList))
         self.result[0] = String(format: "%.2f WPM",wpm )
+        setWPMComment(wpmnum: wpm)
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
         result[1] = "\(getFillerWordSum()) filler word found"
@@ -69,6 +78,7 @@ class ResultFromRecordingViewController: UIViewController {
         //print("fast avg wpm:",getFastAvgWpm())
         print(numOfRecordsTemporary)
         print(timeLabelRecordingTemporary)
+        print("List Filler Word: ", fillerWordList)
         
         bootingRecorderFile = false
         
@@ -88,36 +98,112 @@ class ResultFromRecordingViewController: UIViewController {
         defaults.set(nameRecordingArray, forKey: "nameArray")
         defaults.set(timeRecordingArray, forKey: "timeArray")
         
+        durationProgressBar.transform = durationProgressBar.transform.scaledBy(x: 1, y: 3)
+        loadAudio()
+        
     }
     
     @IBAction func playbackButtonIsTapped(_ sender: Any) {
-        if bootingRecorderFile == false {
-            let audioFilename = audioFileName
-            do{
-                configureAudioSessionToSpeaker()
-                try audioPlayer = AVAudioPlayer(contentsOf: audioFilename!)
-                audioPlayer.volume = 1
-                
-            }catch{}
+        if self.end == true {
+            var right = Float(audioPlayer.duration)
+            right.round(.up)
+            self.rightCount = Int(right)
+            self.leftCount = 0
+            self.rightCountLabel.text = "- \(rightCount.asTimeString())"
+            self.leftCountLabel.text = leftCount.asTimeString()
+            durationProgressBar.setProgress(0.0, animated: false)
+            self.end = false
         }
-        else {
-            if isPlaying == false {
-                // GANTI GAMBAR BUTTON DI BAGIAN INI
-                let image = UIImage(named: "PauseResult") as UIImage?
-                playbackButton.setImage(image, for: .normal)
-                audioPlayer.play()
-                isPlaying = true
-            }
-            else {
-                // GANTI GAMBAR BUTTON DI BAGIAN INI
-                let image = UIImage(named: "PlayResult") as UIImage?
-                playbackButton.setImage(image, for: .normal)
-                audioPlayer.pause()
-                isPlaying = false
-            }
+        if isPlaying == false {
+            // GANTI GAMBAR BUTTON DI BAGIAN INI
+            let image = UIImage(named: "PauseResult") as UIImage?
+            playbackButton.setImage(image, for: .normal)
+            audioPlayer.play()
+            isPlaying = true
+        } else {
+            // GANTI GAMBAR BUTTON DI BAGIAN INI
+            let image = UIImage(named: "PlayResult") as UIImage?
+            playbackButton.setImage(image, for: .normal)
+            audioPlayer.pause()
+            isPlaying = false
+        }
+        setProgress()
+    }
+    
+    func loadAudio(){
+        let audioFilename = audioFileName
+        do {
+            configureAudioSessionToSpeaker()
+            try audioPlayer = AVAudioPlayer(contentsOf: audioFilename!)
+            audioPlayer.volume = 1
+            var rightCount = Float(audioPlayer.duration)
+            rightCount.round(.up)
+            self.rightCount = Int(rightCount)
+            self.leftCount = 0
+            rightCountLabel.text = "- \(self.rightCount.asTimeString())"
+            leftCountLabel.text = self.leftCount.asTimeString()
+            print("rounded : ", rightCount)
+        } catch {
+            
+        }
+    }
+    
+    func setProgress() {
+        if isPlaying == false {
+            timer?.invalidate()
+            timer = nil
+            print("paused")
+        }else{
+            timer = Timer.scheduledTimer(timeInterval: 0.01,
+                                         target: self,
+                                         selector: #selector(updateAudioProgressBar),
+                                         userInfo: nil,
+                                         repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.1,
+                                         target: self,
+                                         selector: #selector(updateDurationLabel),
+                                         userInfo: nil,
+                                         repeats: true)
+        }
+    }
+    
+    @objc func updateAudioProgressBar(){
+        if audioPlayer.isPlaying
+        {
+            // Update progress
+            let currentTime = Float(audioPlayer.currentTime)
+            let duration = Float(audioPlayer.duration)
+            durationProgressBar.setProgress(currentTime/duration, animated: true)
+        }
+    }
+    
+    @objc func updateDurationLabel() {
+        var duration = Float(audioPlayer.duration)
+        var currentTime = Float(audioPlayer.currentTime)
+        currentTime.round(.up)
+        duration.round(.up)
+        
+        self.rightCount = Int(duration) - Int(currentTime == 0 ? duration : currentTime)
+        self.leftCount = Int(duration) - rightCount
+        
+        if self.rightCount == 0 {
+            self.rightCount = 0
+            let image = UIImage(named: "PlayResult") as UIImage?
+            playbackButton.setImage(image, for: .normal)
+            timer?.invalidate()
+            timer = nil
+            self.end = true
+            isPlaying = false
         }
         
-        bootingRecorderFile = true
+        self.rightCountLabel.text = "- \(rightCount.asTimeString())"
+        self.leftCountLabel.text = leftCount.asTimeString()
+        
+        print("left count : ", self.leftCount.asTimeString())
+        print("right count : ", self.rightCount.asTimeString())
+        print("duration : ", duration)
+        print("current time : ", currentTime)
+        print("=========================")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -195,8 +281,45 @@ class ResultFromRecordingViewController: UIViewController {
             comments[1] = finalComment
         }
     }
+    
+    func setWPMComment(wpmnum:Double){
+        if(wpmnum<=100){
+            comments[0]="You did good, but it was a bit slow, try speaking faster!";
+        }else if(wpmnum>100 && wpmnum<170){
+            comments[0]="You did get, your pacing is on the spot, keep it up";
+        }else if(wpmnum >= 170){
+            comments[0]="You did good, but it was a bit fast, try speaking slower!";
+        }
+    }
 
 }
+
+struct TimeParts: CustomStringConvertible {
+    var seconds = 0
+    var minutes = 0
+    var description: String {
+        return String(format: "%02d:%02d", minutes, seconds) as String
+    }
+    
+}
+
+extension Int{
+    func toTimeParts() -> TimeParts {
+        let seconds = self
+        var mins = 0
+        var secs = seconds
+        if seconds >= 60 {
+            mins = Int(seconds / 60)
+            secs = seconds - (mins * 60)
+        }
+        return TimeParts(seconds: secs, minutes: mins)
+    }
+    
+    func asTimeString() -> String {
+        return toTimeParts().description
+    }
+}
+
 extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectionViewDataSource{
     
     
@@ -207,10 +330,11 @@ extension ResultFromRecordingViewController:UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pacingCell", for: indexPath) as! PacingCollectionViewCell
         let selector = indexPath.row
-        cell.setCell(title: cellTitle[selector], image: image, comment: comments[selector], result: result[selector], indicator: indicator[selector])
         
         if selector == 1 {
-            
+            cell.setCell(title: cellTitle[selector], image: image, comment: comments[selector], result: result[selector], indicator: UIImage())
+        }else{
+            cell.setCell(title: cellTitle[selector], image: image, comment: comments[selector], result: result[selector], indicator: indicator[selector])
         }
         
         return cell
